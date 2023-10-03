@@ -1,0 +1,56 @@
+﻿@model BookVM
+
+
+<form asp-controller="Book" asp-action="Delete" method="post">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+
+
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="email">Email</label>
+                <input asp-for="email" class="form-control" />
+                <span asp-validation-for="email"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Phone">Phone</label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="TimeCategory">TimeCategory</label>
+                <input asp-for="TimeCategory" class="form-control" />
+                <span asp-validation-for="TimeCategory"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="TotalPeople">TotalPeople</label>
+                <input asp-for="TotalPeople" class="form-control" />
+                <span asp-validation-for="TotalPeople"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Message">Message</label>
+                <input asp-for="Message" class="form-control" />
+                <span asp-validation-for="Message"></span>
+            </div>
+
+            <div class="form-group pt-3">
+                <button type="submit" asp-controller="Book" asp-action="Delete" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+    </div>
+
+</form>
