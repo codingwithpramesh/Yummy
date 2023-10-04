@@ -97,15 +97,13 @@ namespace YummyM.Controllers
                 BookVM userViewModel = JsonConvert.DeserializeObject<BookVM>(jsonResponse);
                 return View(userViewModel);
             }
-
-
             return NotFound();
         }
 
 
 
         [HttpDelete, ActionName("Delete")]
-        [Route("Book/Delete")]
+        [Route("Book/Delete/{id}")]
         public async Task<IActionResult> Deleted(int id)
         {
             string url = $"{baseAddress}Book/Delete?id="+ id;
@@ -116,6 +114,8 @@ namespace YummyM.Controllers
             }
             return RedirectToAction(nameof(Delete), new { id = id });
         }
+
+
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)

@@ -20,15 +20,7 @@ namespace YummyAPI.Data.Service.Implementation
 
         public async Task<EcomPortfolio> AddAsync(EcomPortfolio ecom, IFormFile AboutImage,IFormFile abou)
         {
-            /* string path = @"D:\Yummy\Yummy\YummyAPI\Images";
-             using(Stream stream = new FileStream(path, FileMode.Create))
-             {
-                 AboutImage.CopyTo(stream);
-                 ecom.
-
-
-
-             }*/
+         
 
             string? fileName = Path.GetFileNameWithoutExtension(AboutImage?.FileName);
             string extension = Path.GetExtension(AboutImage?.FileName);
@@ -36,8 +28,6 @@ namespace YummyAPI.Data.Service.Implementation
             string path = Path.Combine(  "/Images/", fileName);
             if (AboutImage != null)
             {
-
-
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await AboutImage?.CopyToAsync(fileStream);
@@ -69,23 +59,52 @@ namespace YummyAPI.Data.Service.Implementation
             throw new NotImplementedException();
         }
 
-        public async Task<EcomPortfolio> AddAsync(EcomPortfolio ecom, IFormFile AboutImage)
+        public async Task<EcomPortfolio> AddAsync(EcomPortfolio ecom, IFormFile file)
         {
-            string? fileName = Path.GetFileNameWithoutExtension(AboutImage?.FileName);
-            string extension = Path.GetExtension(AboutImage?.FileName);
-            ecom.AboutImage = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
-            string path = Path.Combine("/Images/", fileName);
-            if (AboutImage != null)
+            /* string? fileName = Path.GetFileNameWithoutExtension(AboutImage?.FileName);
+             string extension = Path.GetExtension(AboutImage?.FileName);
+             ecom.AboutImage = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
+             string path = Path.Combine("/Images/", fileName);
+             if (AboutImage != null)
+             {
+                 using (var fileStream = new FileStream(path, FileMode.Create))
+                 {
+                     await AboutImage?.CopyToAsync(fileStream);
+                 }
+             }
+
+             await _context.ecomPortfolios.AddAsync(ecom);
+             await _context.SaveChangesAsync();
+             return ecom;*/
+
+            try
             {
-                using (var fileStream = new FileStream(path, FileMode.Create))
+
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                string? fileName = Path.GetFileNameWithoutExtension(file?.FileName);
+                string extension = Path.GetExtension(file?.FileName);
+                ecom.AboutImage = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
+                string path = Path.Combine(wwwRootPath + "/Images/", fileName);
+                if (file != null)
                 {
-                    await AboutImage?.CopyToAsync(fileStream);
+
+
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await file?.CopyToAsync(fileStream);
+                    }
                 }
+
+                await _context.ecomPortfolios.AddAsync(ecom);
+                await _context.SaveChangesAsync();
+                return ecom;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
             }
 
-            await _context.ecomPortfolios.AddAsync(ecom);
-            await _context.SaveChangesAsync();
-            return ecom;
+            return null;
         }
 
      

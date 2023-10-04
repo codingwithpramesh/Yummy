@@ -1,33 +1,46 @@
-﻿using YummyAPI.Data.Service.Abstract;
+﻿using Microsoft.EntityFrameworkCore;
+using YummyAPI.Data.Service.Abstract;
 using YummyAPI.Models;
 
 namespace YummyAPI.Data.Service.Implementation
 {
     public class ContactService : IContactService
     {
+        private readonly ApplicationDbContext _context;
+        public ContactService(ApplicationDbContext context)
+        {
+            _context=context;
+        }
         public void Add(Contact contact)
         {
-            throw new NotImplementedException();
+            _context.Add(contact);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Contact data = _context.Contacts.Where(re => re.Id == id).FirstOrDefault();
+            _context.Contacts.Remove(data);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Contact> GetAll()
         {
-            throw new NotImplementedException();
+            IEnumerable<Contact> data = _context.Contacts.ToList();
+            return data;
         }
 
         public Contact GetById(int id)
         {
-            throw new NotImplementedException();
+            Contact data = _context.Contacts.FirstOrDefault(x => x.Id == id);
+            return data;
         }
 
         public Contact update(Contact contact)
         {
-            throw new NotImplementedException();
+            _context.Contacts.Update(contact);
+            _context.SaveChanges(true);
+            return contact;
         }
     }
 }

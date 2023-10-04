@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using YummyAPI.Data.Service.Abstract;
 using YummyAPI.Models.ViewModel;
 using YummyAPI.Models;
+using Microsoft.AspNetCore.Hosting;
+using YummyAPI.Data;
 
 namespace YummyAPI.Controllers
 {
@@ -12,13 +14,14 @@ namespace YummyAPI.Controllers
     public class EcomPortfolioController : ControllerBase
     {
 
-        private readonly IEcomPortFolioService _service;
-       
-        public EcomPortfolioController(IEcomPortFolioService service )
+       private readonly IEcomPortFolioService _service;
+       private readonly ApplicationDbContext _context;
+       private readonly IWebHostEnvironment _environment;
+        public EcomPortfolioController(IEcomPortFolioService service , ApplicationDbContext context, IWebHostEnvironment environment)
         {
             _service = service;
-
-
+            _context = context;
+            _environment = environment;
         }
 
         [HttpGet("Index")]
@@ -29,10 +32,42 @@ namespace YummyAPI.Controllers
         }
 
         [HttpPost("Create")]
-        public IActionResult Create(EcomPortfolioVM ecom , IFormFile file)
-        {
-           /*var data = _service.Add(ecom, file);*/
-           return Ok();
+        public async Task<IActionResult> CreateAsync( [FromForm] EcomPortfolio? ecom)
+        { 
+            try
+            {
+                string wwwRootPath = _environment.WebRootPath;
+                if (ecom.ImageAbout != null)
+                    await SaveFileAsync(ecom.ImageAbout, wwwRootPath, "/Images/", "AboutImage");
+
+                if (ecom.VideosAbout != null)
+                    await SaveFileAsync(ecom.VideosAbout, wwwRootPath, "/Videos/", "AboutVideos");
+
+                if (ecom.ImageEvent != null)
+                    await SaveFileAsync(ecom.ImageEvent, wwwRootPath, "/Images/", "EventImage");
+
+                if (ecom.Imagechef != null)
+                    await SaveFileAsync(ecom.Imagechef, wwwRootPath, "/Images/", "ChefImage");
+
+                if (ecom.ImageGallery != null && ecom.ImageGallery.Count > 0)
+                {
+                    foreach (var img in ecom.ImageGallery)
+                    {
+                        await SaveFileAsync(img, wwwRootPath, "/Images/", "GalleryImage");
+                    }
+                }
+                await _context.ecomPortfolios.AddAsync(ecom);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return Ok();
+
+
+
 
         }
 
@@ -85,15 +120,23 @@ namespace YummyAPI.Controllers
 
         public IActionResult Details([FromRoute] int id)
         {
-            /* var user = _context.Contacts.Find(id);
-
-             if (user == null)
-             {
-                 return NotFound();
-             }
-             return Ok(user);*/
+           
             return Ok();
         }
+
+        private async Task SaveFileAsync(IFormFile file, string rootPath, string directory, string property)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(file.FileName);
+            string extension = Path.GetExtension(file.FileName);
+            string fullPath = Path.Combine(rootPath + directory+ fileName + DateTime.Now.ToString("yymmssfff") + extension);
+
+            using (var fileStream = new FileStream(fullPath, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+        }
+
+
 
 
     }

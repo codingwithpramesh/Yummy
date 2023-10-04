@@ -1,5 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@*@model List<EcomPortfolioVM>
+
 @{
+    ViewData["Title"] = "List Of Data";
 }
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <table class="table">
+            <tr>
+                <td>@Html.DisplayNameFor(Model =>Model.First().HeroTitle) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().HeroDescription) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().HeroButton) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().AboutTitle) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().AboutDescription) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().AboutImage) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().AboutVideos) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().CardTitle) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().CardDescription) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().CardButtonText) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().TotalClient) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().totalProject) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().TotalHours) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().TotalWorkers) </td>
+
+                <td>@Html.DisplayNameFor(Model =>Model.First().MenuTitle) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().Menuvalue) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().TimeCategory) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().professorTitle) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().CardDescription) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().CardButtonText) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().TotalClient) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().totalProject) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().TotalHours) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().TotalWorkers) </td>
+                <td>Actions</td>
+            </tr>
+
+            @foreach (var abc in Model)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(Model => abc.Name)</td>
+                    <td> @Html.DisplayFor(Model => abc.email)</td>
+                    <td> @Html.DisplayFor(Model => abc.Phone)</td>
+                    <td> @Html.DisplayFor(Model => abc.Date)</td>
+                    <td> @Html.DisplayFor(Model => abc.TimeCategory)</td>
+                    <td> @Html.DisplayFor(Model => abc.TotalPeople)</td>
+                    <td> @Html.DisplayFor(Model => abc.Message)</td>
+
+                    <td>
+                        <a asp-action="Update" asp-route-id="@abc.Id">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@abc.Id">Delete</a>
+                        <a asp-action="Details" asp-route-id="@abc.Id">Details</a>
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+    </div>
+</div>*@

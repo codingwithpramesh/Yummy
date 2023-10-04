@@ -27,10 +27,18 @@ namespace YummyM.Controllers
             return View(new List<ContactVM>());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(EcomPortfolioVM ecom)
+        [HttpGet]
+        public IActionResult Create()
         {
-            string url = baseAddress + "user";
+            return View();
+        }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(EcomPortfolioVM ecom, IFormFile file)
+        {
+            string url = baseAddress + "Ecomportfolio/Create";
             var content = new StringContent(JsonConvert.SerializeObject(ecom), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PostAsync(url, content);
 

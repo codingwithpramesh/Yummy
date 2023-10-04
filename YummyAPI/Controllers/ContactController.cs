@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using YummyAPI.Data;
+using YummyAPI.Data.Service.Abstract;
 using YummyAPI.Models;
 using YummyAPI.Models.ViewModel;
 
@@ -7,16 +8,18 @@ namespace YummyAPI.Controllers
 {
     public class ContactController : Controller
     {
+        private readonly IContactService _service;
         private readonly ApplicationDbContext _context;
-        public ContactController( ApplicationDbContext Context) 
+        public ContactController( IContactService service , ApplicationDbContext context) 
         {
-            _context = Context;
+           _service = service;
+            _context = context;
         }
 
         [HttpGet("Index")]
         public IActionResult Index()
         {
-            var data = _context.Contacts.ToList();
+            var data = _service.GetAll();
             return Ok(data);
         }
 
