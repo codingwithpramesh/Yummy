@@ -17,5 +17,7 @@ namespace YummyAPI.Data
         public DbSet<Book>  Books { get; set; }
 
         public DbSet<Contact> Contacts { get; set; }
+
+        public DbSet<TokenInfo> Tokens { get; set; }
     }
 }

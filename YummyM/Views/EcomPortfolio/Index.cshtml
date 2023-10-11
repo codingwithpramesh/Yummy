@@ -1,9 +1,9 @@
-﻿@*@model List<EcomPortfolioVM>
+﻿@model List<EcomPortfolioVM>
 
 @{
     ViewData["Title"] = "List Of Data";
 }
-
+<a class="btn btn-primary" asp-controller="Ecomportfolio" asp-action="Create">Create</a>
 <div class="row">
     <div class="col-md-8 offset-2">
         <table class="table">
@@ -22,30 +22,40 @@
                 <td>@Html.DisplayNameFor(Model =>Model.First().totalProject) </td>
                 <td>@Html.DisplayNameFor(Model =>Model.First().TotalHours) </td>
                 <td>@Html.DisplayNameFor(Model =>Model.First().TotalWorkers) </td>
-
                 <td>@Html.DisplayNameFor(Model =>Model.First().MenuTitle) </td>
                 <td>@Html.DisplayNameFor(Model =>Model.First().Menuvalue) </td>
                 <td>@Html.DisplayNameFor(Model =>Model.First().TimeCategory) </td>
                 <td>@Html.DisplayNameFor(Model =>Model.First().professorTitle) </td>
                 <td>@Html.DisplayNameFor(Model =>Model.First().CardDescription) </td>
                 <td>@Html.DisplayNameFor(Model =>Model.First().CardButtonText) </td>
-                <td>@Html.DisplayNameFor(Model =>Model.First().TotalClient) </td>
-                <td>@Html.DisplayNameFor(Model =>Model.First().totalProject) </td>
-                <td>@Html.DisplayNameFor(Model =>Model.First().TotalHours) </td>
-                <td>@Html.DisplayNameFor(Model =>Model.First().TotalWorkers) </td>
                 <td>Actions</td>
             </tr>
 
             @foreach (var abc in Model)
             {
                 <tr>
-                    <td> @Html.DisplayFor(Model => abc.Name)</td>
-                    <td> @Html.DisplayFor(Model => abc.email)</td>
-                    <td> @Html.DisplayFor(Model => abc.Phone)</td>
-                    <td> @Html.DisplayFor(Model => abc.Date)</td>
+                    <td> @Html.DisplayFor(Model => abc.HeroTitle)</td>
+                    <td> @Html.DisplayFor(Model => abc.HeroDescription)</td>
+                    <td> @Html.DisplayFor(Model => abc.HeroButton)</td>
+                    <td> @Html.DisplayFor(Model => abc.TotalClient)</td>
+                    <td> @Html.DisplayFor(Model => abc.AboutDescription)</td>
+                    <td> @Html.DisplayFor(Model => abc.AboutImage)</td>
+                    <td> @Html.DisplayFor(Model => abc.AboutVideos)</td>
+
+                    <td> @Html.DisplayFor(Model => abc.CardTitle)</td>
+                    <td> @Html.DisplayFor(Model => abc.CardDescription)</td>
+                    <td> @Html.DisplayFor(Model => abc.CardButtonText)</td>
+                    <td> @Html.DisplayFor(Model => abc.TotalClient)</td>
+                    <td> @Html.DisplayFor(Model => abc.TotalHours)</td>
+                    <td> @Html.DisplayFor(Model => abc.TotalWorkers)</td>
+                    <td> @Html.DisplayFor(Model => abc.MenuTitle)</td>
+
+
+                    <td> @Html.DisplayFor(Model => abc.Menuvalue)</td>
                     <td> @Html.DisplayFor(Model => abc.TimeCategory)</td>
-                    <td> @Html.DisplayFor(Model => abc.TotalPeople)</td>
-                    <td> @Html.DisplayFor(Model => abc.Message)</td>
+                    <td> @Html.DisplayFor(Model => abc.professorTitle)</td>
+                    <td> @Html.DisplayFor(Model => abc.CardDescription)</td>
+                    <td> @Html.DisplayFor(Model => abc.CardButtonText)</td>
 
                     <td>
                         <a asp-action="Update" asp-route-id="@abc.Id">Edit</a>
@@ -58,4 +68,4 @@
 
         </table>
     </div>
-</div>*@
+</div>

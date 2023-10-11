@@ -32,6 +32,7 @@ namespace YummyAPI.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -98,19 +99,19 @@ namespace YummyAPI.Migrations
                     HeroButton = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AboutTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AboutDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AboutImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AboutImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AboutNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AboutVideos = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AboutVideos = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CardTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CardDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CardButtonText = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TotalClient = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    totalProject = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TotalHours = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TotalWorkers = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TotalClient = table.Column<int>(type: "int", nullable: true),
+                    totalProject = table.Column<int>(type: "int", nullable: true),
+                    TotalHours = table.Column<int>(type: "int", nullable: true),
+                    TotalWorkers = table.Column<int>(type: "int", nullable: true),
                     MenuTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Menuvalue = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TimeCategory = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TimeCategory = table.Column<int>(type: "int", nullable: true),
                     professorTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProfessorDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     professorName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -118,22 +119,22 @@ namespace YummyAPI.Migrations
                     ProfessorRating = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     eventtitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     eventDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EventImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EventPrice = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EventImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EventPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     eventDescrip = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     chefTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ChefImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ChefImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     chefName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ChefPosition = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ChefDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GalleryTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GalleryImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GalleryImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     contactEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     contactAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OpeningHour = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OpeningHour = table.Column<int>(type: "int", nullable: true),
                     FooterAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FooterPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FooterEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -142,6 +143,21 @@ namespace YummyAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ecomPortfolios", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tokens",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RefreshTokenExpiry = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tokens", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -316,6 +332,9 @@ namespace YummyAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "ecomPortfolios");
+
+            migrationBuilder.DropTable(
+                name: "Tokens");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

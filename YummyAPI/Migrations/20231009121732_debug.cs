@@ -5,7 +5,7 @@
 namespace YummyAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class DBcontext : Migration
+    public partial class debug : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,15 +1,18 @@
-﻿using YummyAPI.Models;
+﻿using Microsoft.Win32;
+using YummyAPI.Models;
 
 namespace YummyAPI.Data.Service.Abstract
 {
     public interface IUserService
     {
 
-        public void Login(string Username , string Password);
+        Task LoginAsync(LoginModel login);
 
-        public void Logout();
+        Task Registration (RegisterModel register);
 
-        public void Register(RegisterModel register);
+      
+
+        
 
     }
 }

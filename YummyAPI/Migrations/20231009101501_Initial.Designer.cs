@@ -12,8 +12,8 @@ using YummyAPI.Data;
 namespace YummyAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231004115345_DBcontext")]
-    partial class DBcontext
+    [Migration("20231009101501_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -207,6 +207,10 @@ namespace YummyAPI.Migrations
                     b.Property<string>("ProfilePicture")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -309,7 +313,6 @@ namespace YummyAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AboutImage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AboutNumber")
@@ -319,7 +322,6 @@ namespace YummyAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("AboutVideos")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CardButtonText")
@@ -335,7 +337,6 @@ namespace YummyAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ChefImage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ChefPosition")
@@ -348,11 +349,10 @@ namespace YummyAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventImage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EventPrice")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal?>("EventPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("FooterAddress")
                         .HasColumnType("nvarchar(max)");
@@ -367,7 +367,6 @@ namespace YummyAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GalleryImage")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("GalleryTitle")
@@ -388,8 +387,8 @@ namespace YummyAPI.Migrations
                     b.Property<string>("Menuvalue")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("OpeningHour")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("OpeningHour")
+                        .HasColumnType("int");
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
@@ -403,17 +402,17 @@ namespace YummyAPI.Migrations
                     b.Property<string>("ProfessorRating")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TimeCategory")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TimeCategory")
+                        .HasColumnType("int");
 
-                    b.Property<string>("TotalClient")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TotalClient")
+                        .HasColumnType("int");
 
-                    b.Property<string>("TotalHours")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TotalHours")
+                        .HasColumnType("int");
 
-                    b.Property<string>("TotalWorkers")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("TotalWorkers")
+                        .HasColumnType("int");
 
                     b.Property<string>("chefName")
                         .HasColumnType("nvarchar(max)");
@@ -442,12 +441,36 @@ namespace YummyAPI.Migrations
                     b.Property<string>("professorTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("totalProject")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("totalProject")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("ecomPortfolios");
+                });
+
+            modelBuilder.Entity("YummyAPI.Models.TokenInfo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RefreshTokenExpiry")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

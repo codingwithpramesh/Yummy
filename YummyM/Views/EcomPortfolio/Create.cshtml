@@ -1,13 +1,14 @@
-﻿@model EcomPortfolioVM
+﻿@using YummyM.Data;
+@model EcomPortfolioVM
 
 
 @{
     ViewData["Title"] = "Create EcomPortfolio";
 }
+
 <form asp-controller="Ecomportfolio" asp-action="Create" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-8 offset-2">
-
             <div class="form-group">
                 <label asp-for="HeroTitle">Hero Title</label>
                 <input asp-for="HeroTitle" class="form-control" name="HeroTitle" />
@@ -45,7 +46,7 @@
 
             <div class="form-group">
                 <label asp-for="AboutImage">About Image</label>
-                <input type="file" asp-for="AboutImage" class="form-control"  name="ImageAbout"/>
+                <input type="file" asp-for="AboutImage" class="form-control" name="ImageAbout" />
                 <span asp-validation-for="AboutImage"></span>
             </div>
 
@@ -55,7 +56,7 @@
                 <label asp-for="AboutVideos">About Videos</label>
                 <input type="file" asp-for="AboutVideos" class="form-control" name="VideosAbout" />
                 <span asp-validation-for="AboutVideos"></span>
-            </div>
+            </div> 
 
 
             <div class="form-group">
@@ -123,7 +124,15 @@
 
             <div class="form-group">
                 <label asp-for="TimeCategory">Time Category</label>
-                <input asp-for="TimeCategory" class="form-control" name="TimeCategory" />
+               @* <select asp-for="TimeCategory" asp-items="Html.GetEnumSelectList<Time>()" name="TimeCategory" class="form-control">
+                </select>*@
+
+                <select asp-for="TimeCategory">
+                    <option value= 1> Starter</option>
+                    <option value= 2> Breakfast</option> 
+                    <option value= 3> Lunch</option>
+                    <option value= 4>Brunch</option>
+                </select>
                 <span asp-validation-for="TimeCategory"></span>
             </div>
 
@@ -209,7 +218,7 @@
 
             <div class="form-group">
                 <label asp-for="ChefImage">Chef Image</label>
-                <input type="file" asp-for="ChefImage" class="form-control" name="ImageChef" />
+                <input type="file" asp-for="ChefImage" class="form-control" name="Imagechef" />
                 <span asp-validation-for="ChefImage"></span>
             </div>
 

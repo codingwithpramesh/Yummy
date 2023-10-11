@@ -46,7 +46,8 @@ namespace YummyAPI.Data.Service.Implementation
 
         public IEnumerable<EcomPortfolio> GetAll()
         {
-            throw new NotImplementedException();
+            var data = _context.ecomPortfolios.ToList();
+            return data;
         }
 
         public EcomPortfolio GetById(int id)

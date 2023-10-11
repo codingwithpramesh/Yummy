@@ -21,20 +21,17 @@ namespace YummyAPI.Data.Service.Implementation
 
         }
 
-        [HttpPost]
-        public void Login(string Username, string Password)
+        public Task LoginAsync(LoginModel login)
         {
             throw new NotImplementedException();
         }
 
-        [HttpPost]
-        public void Logout()
+        public async Task LogoutAsync()
         {
-            throw new NotImplementedException();
+            await _signInManager.SignOutAsync();
         }
 
-        [HttpPost]
-        public void Register(RegisterModel register)
+        public Task Registration(RegisterModel register)
         {
             throw new NotImplementedException();
         }

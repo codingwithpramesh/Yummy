@@ -8,8 +8,6 @@ namespace YummyAPI.Models
 {
     public class EcomPortfolio
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public string? HeroTitle { get; set; }
@@ -22,17 +20,17 @@ namespace YummyAPI.Models
 
         public string? AboutDescription { get; set; }
 
-        public string AboutImage { get; set; }
+        public string? AboutImage { get; set; }
 
         [NotMapped]
-        public IFormFile ImageAbout { get; set; }
+        public IFormFile? ImageAbout { get; set; }
 
         public string? AboutNumber { get; set; }
 
-        public string AboutVideos { get; set; }
+        public string? AboutVideos { get; set; }
 
         [NotMapped]
-        public IFormFile VideosAbout { get; set; }
+        public IFormFile? VideosAbout { get; set; }
 
         public string? CardTitle { get; set; }
 
@@ -40,19 +38,19 @@ namespace YummyAPI.Models
 
         public string? CardButtonText { get; set; }
 
-        public string? TotalClient { get; set; }
+        public int? TotalClient { get; set; }
 
-        public string? totalProject { get; set; }
+        public int? totalProject { get; set; }
 
-        public string? TotalHours { get; set; }
+        public int? TotalHours { get; set; }
 
-        public string? TotalWorkers { get; set; }
+        public int? TotalWorkers { get; set; }
 
         public string? MenuTitle { get; set; }
 
         public string? Menuvalue { get; set; }
 
-        public string? TimeCategory { get; set; }
+        public Time?  TimeCategory { get; set; }
 
         public string? professorTitle { get; set; }
 
@@ -69,22 +67,22 @@ namespace YummyAPI.Models
         public string? eventDescription { get; set; }
 
         
-        public string EventImage { get; set; }
+        public string? EventImage { get; set; }
 
         [NotMapped]
-        public IFormFile ImageEvent { get; set; }
+        public IFormFile? ImageEvent { get; set; }
 
-        public string? EventPrice { get; set; }
+        public decimal? EventPrice { get; set; }
 
         public string? eventDescrip { get; set; }
 
         public string? chefTitle { get; set; }
 
         
-        public string ChefImage { get; set; }
+        public string? ChefImage { get; set; }
 
         [NotMapped]
-        public IFormFile Imagechef { get; set; }
+        public IFormFile? Imagechef { get; set; }
 
         public string? chefName { get; set; }
 
@@ -94,10 +92,10 @@ namespace YummyAPI.Models
 
         public string? GalleryTitle { get; set; }
 
-        public string GalleryImage { get; set; }
+        public string? GalleryImage { get; set; }
 
         [NotMapped]
-        public List<IFormFile> ImageGallery { get; set; }
+        public IFormFile? ImageGallery { get; set; }
 
         public string? ContactTitle { get; set; }
 
@@ -109,8 +107,7 @@ namespace YummyAPI.Models
 
         public string? Phone { get; set; }
 
-        public string? OpeningHour { get; set; }
-
+        public int? OpeningHour { get; set; }
 
         public string? FooterAddress { get; set; }
 

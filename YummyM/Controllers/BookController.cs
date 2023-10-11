@@ -43,7 +43,7 @@ namespace YummyM.Controllers
         public async Task<IActionResult> Create(BookVM bookvm)
         {
             string url = baseAddress + "Book/Create";
-            var content = new StringContent(JsonConvert.SerializeObject(bookvm), Encoding.UTF8, "application/json");
+            StringContent content = new StringContent(JsonConvert.SerializeObject(bookvm), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PostAsync(url, content);
 
             if (response.IsSuccessStatusCode)
