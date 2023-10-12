@@ -148,16 +148,38 @@ namespace YummyM.Controllers
                           multipartContent.Add(new StreamContent(stream), "ImageAbout", "Test.txt");
                       }*/
 
+                   /* if(ecom.ImageAbout.FileName != null)
+                    {
 
+                    }*/
                    
-                    var fileroute = ecom.ImageEvent.FileName;
+                    var fileroute = @"D:\API Documentation.pdf";
+                    var fileroute1 = @"D:\API Documentation.pdf";
+                    var tech = @"D:\API Documentation.pdf";
+                    var group = @"D:\API Documentation.pdf";
+                    var final = @"D:\API Documentation.pdf";
+
+
                     var filename = Path.GetFileName(fileroute);
                     using var FileStream = System.IO.File.OpenRead(fileroute);
+
+                    var filename1 = Path.GetFileName(fileroute1);
+                    using var FileStream1 = System.IO.File.OpenRead(fileroute1);
+
+                    var filename2 = Path.GetFileName(tech);
+                    using var FileStream2 = System.IO.File.OpenRead(tech);
+
+                    var filename3 = Path.GetFileName(group);
+                    using var FileStream3 = System.IO.File.OpenRead(group);
+
+                    var filename4 = Path.GetFileName(final);
+                    using var FileStream4 = System.IO.File.OpenRead(final);
+
                     multipartContent.Add(new StreamContent(FileStream), "ImageAbout" ,filename);
-                   //multipartContent.Add(new StreamContent(FileStream), "VideosAbout", filename);
-                  /*  multipartContent.Add(new StreamContent(FileStream), "ImageEvent", filename);
-                    multipartContent.Add(new StreamContent(FileStream), "Imagechef", filename);
-                    multipartContent.Add(new StreamContent(FileStream), "ImageGallery", filename);*/
+                   multipartContent.Add(new StreamContent(FileStream1), "VideosAbout", filename1);
+                    multipartContent.Add(new StreamContent(FileStream2), "ImageEvent", filename2);
+                    multipartContent.Add(new StreamContent(FileStream3), "Imagechef", filename3);
+                    multipartContent.Add(new StreamContent(FileStream4), "ImageGallery", filename4);
                     multipartContent.Add(new StringContent(ecom.AboutDescription ?? string.Empty), "AboutDescription");
                    
          
@@ -257,8 +279,6 @@ namespace YummyM.Controllers
                 EcomPortfolioVM ecom = JsonConvert.DeserializeObject<EcomPortfolioVM>(jsonResponse);
                 return View(ecom);
             }
-
-
             return NotFound();
         }
 
