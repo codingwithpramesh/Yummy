@@ -35,6 +35,7 @@ namespace YummyM.Controllers
             return View(new List<ContactVM>());
         }
 
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -50,6 +51,14 @@ namespace YummyM.Controllers
                 {
 
                     string url = baseAddress + "EcomPortfolio/Create";
+                 
+                    FileSave(ecom.ImageAbout);
+                    FileSave(ecom.Imagechef);
+                    FileSave(ecom.ImageEvent);
+                    FileSave(ecom.ImageGallery);
+                    FileSave(ecom.VideosAbout);
+
+
                     var multipartContent = new MultipartFormDataContent();
                     if (ecom.ImageAbout != null)
                     {
@@ -114,7 +123,6 @@ namespace YummyM.Controllers
                     multipartContent.Add(new StringContent(ecom.TotalWorkers ?? string.Empty), "TotalWorkers");
                     multipartContent.Add(new StringContent(ecom.MenuTitle ?? string.Empty), "MenuTitle");
                     multipartContent.Add(new StringContent(ecom.Menuvalue ?? string.Empty), "Menuvalue");
-                    multipartContent.Add(new StringContent(ecom.TimeCategory.ToString() ?? string.Empty), "TimeCategory");
                     multipartContent.Add(new StringContent(ecom.professorTitle ?? string.Empty), "professorTitle");
                     multipartContent.Add(new StringContent(ecom.professorName ?? string.Empty), "professorName");
                     multipartContent.Add(new StringContent(ecom.ProfessorPosition ?? string.Empty), "ProfessorPosition");
@@ -148,38 +156,91 @@ namespace YummyM.Controllers
                           multipartContent.Add(new StreamContent(stream), "ImageAbout", "Test.txt");
                       }*/
 
-                   /* if(ecom.ImageAbout.FileName != null)
-                    {
+                    /* if(ecom.ImageAbout.FileName != null)
+                     {
 
-                    }*/
-                   
-                    var fileroute = @"D:\API Documentation.pdf";
+                     }*/
+
+                    if (ecom.ImageAbout != null)
+                    {
+                        string file = ecom.ImageAbout.FileName;
+                        string path = Directory.GetCurrentDirectory();
+                        string Fullpath = Path.Combine(path+ "\\wwwroot\\Files\\"+ file);
+                        /*var filename = Path.GetFileName(Fullpath);*/
+                        var FileStream = System.IO.File.OpenRead(Fullpath);
+                        multipartContent.Add(new StreamContent(FileStream), "ImageAbout", file);
+                    }
+
+
+                    if (ecom.Imagechef != null)
+                    {
+                        string file = ecom.Imagechef.FileName;
+                        string path = Directory.GetCurrentDirectory();
+                        string Fullpath = Path.Combine(path+ "\\wwwroot\\Files\\"+ file);
+                       // var filename1 = Path.GetFileName(Fullpath);
+                        var FileStream = System.IO.File.OpenRead(Fullpath);
+                        multipartContent.Add(new StreamContent(FileStream), "Imagechef", file);
+                    }
+
+
+                    if (ecom.ImageEvent != null)
+                    {
+                        string file = ecom.ImageEvent.FileName;
+                        string path = Directory.GetCurrentDirectory();
+                        string Fullpath = Path.Combine(path+ "\\wwwroot\\Files\\"+ file);
+                        var FileStream = System.IO.File.OpenRead(Fullpath);
+                        multipartContent.Add(new StreamContent(FileStream), "ImageEvent", file);
+                    }
+
+
+                    if (ecom.ImageGallery != null)
+                    {
+                        string file = ecom.ImageGallery.FileName;
+                        string path = Directory.GetCurrentDirectory();
+                        string Fullpath = Path.Combine(path+"\\wwwroot\\Files\\"+ file);
+                        var FileStream = System.IO.File.OpenRead(Fullpath);
+                        multipartContent.Add(new StreamContent(FileStream), "ImageGallery", file);
+                    }
+
+
+                    if (ecom.VideosAbout != null)
+                    {
+                        string file = ecom.VideosAbout.FileName;
+                        string path = Directory.GetCurrentDirectory();
+                        string Fullpath = Path.Combine(path+ "\\wwwroot\\Files\\"+ file);
+                        var FileStream = System.IO.File.OpenRead(Fullpath);
+                        multipartContent.Add(new StreamContent(FileStream), "VideosAbout", file);
+                    }
+
+
+                    /*var fileroute =  @"D:\API Documentation.pdf";
                     var fileroute1 = @"D:\API Documentation.pdf";
                     var tech = @"D:\API Documentation.pdf";
                     var group = @"D:\API Documentation.pdf";
-                    var final = @"D:\API Documentation.pdf";
+                    var final = @"D:\API Documentation.pdf";*/
 
 
+                   /* 
                     var filename = Path.GetFileName(fileroute);
-                    using var FileStream = System.IO.File.OpenRead(fileroute);
+                    using var FileStream = System.IO.File.OpenRead(fileroute);*/
 
-                    var filename1 = Path.GetFileName(fileroute1);
-                    using var FileStream1 = System.IO.File.OpenRead(fileroute1);
+                    
 
-                    var filename2 = Path.GetFileName(tech);
+                   /* var filename2 = Path.GetFileName(tech);
                     using var FileStream2 = System.IO.File.OpenRead(tech);
 
                     var filename3 = Path.GetFileName(group);
                     using var FileStream3 = System.IO.File.OpenRead(group);
 
                     var filename4 = Path.GetFileName(final);
-                    using var FileStream4 = System.IO.File.OpenRead(final);
+                    using var FileStream4 = System.IO.File.OpenRead(final);*/
 
-                    multipartContent.Add(new StreamContent(FileStream), "ImageAbout" ,filename);
-                   multipartContent.Add(new StreamContent(FileStream1), "VideosAbout", filename1);
+
+
+                  /* multipartContent.Add(new StreamContent(FileStream1), "VideosAbout", filename1);
                     multipartContent.Add(new StreamContent(FileStream2), "ImageEvent", filename2);
                     multipartContent.Add(new StreamContent(FileStream3), "Imagechef", filename3);
-                    multipartContent.Add(new StreamContent(FileStream4), "ImageGallery", filename4);
+                    multipartContent.Add(new StreamContent(FileStream4), "ImageGallery", filename4);*/
                     multipartContent.Add(new StringContent(ecom.AboutDescription ?? string.Empty), "AboutDescription");
                    
          
@@ -285,13 +346,15 @@ namespace YummyM.Controllers
 
         private async Task FileSave(IFormFile file)
         {
-            string wwwroot = _webHostEnvironment.WebRootPath;
-            var filepath = Path.Combine(wwwroot, "Files" , file.FileName);
-            using (var fileStream = new FileStream(filepath, FileMode.Create))
+            if(file != null)
             {
-                await file.CopyToAsync(fileStream);
+                string wwwroot = _webHostEnvironment.WebRootPath;
+                var filepath = Path.Combine(wwwroot, "Files", file.FileName);
+                using (var fileStream = new FileStream(filepath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
             }
-
             
         }
     }
