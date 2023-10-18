@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using YummyAPI.Data;
 using YummyAPI.Data.Service.Abstract;
 using YummyAPI.Models;
@@ -6,6 +7,7 @@ using YummyAPI.Models.ViewModel;
 
 namespace YummyAPI.Controllers
 {
+   /* [Authorize]*/
     public class ContactController : Controller
     {
         private readonly IContactService _service;
@@ -25,7 +27,7 @@ namespace YummyAPI.Controllers
 
 
         [HttpPost("Create")]
-        public IActionResult Create(ContactVM contactVM)
+        public IActionResult Create([FromBody]ContactVM contactVM)
         {
             var data = new Contact
             {
@@ -41,7 +43,7 @@ namespace YummyAPI.Controllers
         }
 
         [HttpPut("Update")]
-        public IActionResult Update(int id ,ContactVM contactVm)
+        public IActionResult Update(int id , [FromBody]ContactVM contactVm)
         {
             var data = _context.Contacts.Find(id);
             if (data != null)
@@ -50,6 +52,9 @@ namespace YummyAPI.Controllers
                 data.Email = contactVm.Email;
                 data.Subject = contactVm.Subject;
                 data.Message = contactVm.Message;
+                _context.Contacts.Update(data);
+                _context.SaveChanges();
+                return Ok(data);
             }
             return NotFound();
         }
@@ -83,8 +88,7 @@ namespace YummyAPI.Controllers
 
 
         [HttpGet("Details")]
-
-        public IActionResult Details([FromRoute] int id)
+        public IActionResult Details( int id)
         {
             var user = _context.Contacts.Find(id);
 

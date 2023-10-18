@@ -446,6 +446,60 @@ namespace YummyAPI.Migrations
                     b.ToTable("ecomPortfolios");
                 });
 
+            modelBuilder.Entity("YummyAPI.Models.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("EventImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("EventPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("eventDescrip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("eventDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("eventtitle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("YummyAPI.Models.Social", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EId");
+
+                    b.ToTable("Socials");
+                });
+
             modelBuilder.Entity("YummyAPI.Models.TokenInfo", b =>
                 {
                     b.Property<int>("Id")
@@ -519,6 +573,17 @@ namespace YummyAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("YummyAPI.Models.Social", b =>
+                {
+                    b.HasOne("YummyAPI.Models.EcomPortfolio", "Portfolio")
+                        .WithMany()
+                        .HasForeignKey("EId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Portfolio");
                 });
 #pragma warning restore 612, 618
         }

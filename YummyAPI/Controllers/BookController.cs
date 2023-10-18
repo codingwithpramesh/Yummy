@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Numerics;
 using YummyAPI.Data;
 using YummyAPI.Data.Enum;
 using YummyAPI.Models;
+using YummyAPI.Models.DTO;
 using YummyAPI.Models.ViewModel;
 
 
@@ -11,10 +15,11 @@ namespace YummyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    /* [Authorize]*/
     public class BookController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public BookController( ApplicationDbContext context)
+        public BookController(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -46,7 +51,7 @@ namespace YummyAPI.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult update( int id, BOOKVM book)
+        public IActionResult update(int id, BOOKVM book)
         {
             var data = _context.Books.Find(id);
             if (data != null)
@@ -66,7 +71,7 @@ namespace YummyAPI.Controllers
 
 
         [HttpGet("Update")]
-        public async Task<IActionResult> Update( int id)
+        public async Task<IActionResult> Update(int id)
         {
             var data = await _context.Books.FindAsync(id);
             if (data == null)
@@ -88,7 +93,7 @@ namespace YummyAPI.Controllers
             return NotFound();
         }
 
-        [HttpDelete ("Delete")]
+        [HttpDelete("Delete")]
         public IActionResult Delete(int id)
         {
             var data = _context.Books.Find(id);
@@ -103,7 +108,7 @@ namespace YummyAPI.Controllers
 
 
         [HttpGet("Details")]
-        public IActionResult Details( int id)
+        public IActionResult Details(int id)
         {
             var user = _context.Books.Find(id);
 
@@ -113,6 +118,21 @@ namespace YummyAPI.Controllers
             }
             return Ok(user);
         }
+
+
+        /*[HttpPatch("partialUpdate")]
+        public async Task<IActionResult> PatchUpdate(int id, JsonPatchDocument<BookDTO> Model)
+        {
+            var data = _context.Books.Find(id);
+            data.Name = "Pramesh";
+            data.email = "Prameshbhattarai005@gmail.com";
+            data.Phone = "1234567890";
+            Model.ApplyTo(data);
+            await _context.SaveChangesAsync();
+
+
+            return Ok();
+        }*/
 
     }
 }

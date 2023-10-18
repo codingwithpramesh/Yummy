@@ -2,12 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using YummyM.Data;
-
 namespace YummyM.Models
 {
     public class EcomPortfolioVM
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -72,7 +70,7 @@ namespace YummyM.Models
         public string? EventImage { get; set; }
 
         [NotMapped]
-        public IFormFile? ImageEvent { get; set; }
+        public List<IFormFile>? ImageEvent { get; set; }
 
         public string? EventPrice { get; set; }
 
@@ -97,7 +95,7 @@ namespace YummyM.Models
         public string? GalleryImage { get; set; }
 
         [NotMapped]
-        public IFormFile? ImageGallery { get; set; }
+        public List<IFormFile>? ImageGallery { get; set; }
 
         public string? ContactTitle { get; set; }
 

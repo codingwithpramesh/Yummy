@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.IdentityModel.Tokens.Jwt;
@@ -13,6 +14,7 @@ namespace YummyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    /*[Authorize]*/
     public class UserController : ControllerBase
     {
         private readonly ITokenService _service;

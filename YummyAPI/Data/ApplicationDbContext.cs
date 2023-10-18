@@ -19,5 +19,9 @@ namespace YummyAPI.Data
         public DbSet<Contact> Contacts { get; set; }
 
         public DbSet<TokenInfo> Tokens { get; set; }
+
+        public DbSet<Social> Socials { get; set; }
+
+        public DbSet<Event> Events { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace YummyM.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ContactVM contact)
         {
-            string url = baseAddress + "contact/Create";
+            string url = baseAddress + "Create";
             var content = new StringContent(JsonConvert.SerializeObject(contact), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PostAsync(url, content);
 
@@ -53,9 +53,9 @@ namespace YummyM.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> Update(Guid id)
+        public async Task<IActionResult> Update(int id)
         {
-            string url = $"{baseAddress}user/Update/?id="+ id;
+            string url = $"{baseAddress}Details?id="+ id;
             HttpResponseMessage response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
@@ -68,10 +68,10 @@ namespace YummyM.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(Guid id, ContactVM userViewModel)
+       /* [ValidateAntiForgeryToken]*/
+        public async Task<IActionResult> Update(int id, ContactVM userViewModel)
         {
-            string url = $"{baseAddress}User/"+ id;
+            string url = $"{baseAddress}Update?id="+ id;
             var content = new StringContent(JsonConvert.SerializeObject(userViewModel), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PutAsync(url, content);
 
@@ -83,10 +83,10 @@ namespace YummyM.Controllers
         }
 
         [HttpGet]
-        [Route("Product/DeleteData")]
-        public async Task<IActionResult> DeleteData(Guid id)
+        [Route("contact/Delete")]
+        public async Task<IActionResult> Delete(int id)
         {
-            string url = baseAddress + "User/"+ id;
+            string url = baseAddress + "Details?id=" + id;
             HttpResponseMessage response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
@@ -102,11 +102,11 @@ namespace YummyM.Controllers
 
 
 
-        [HttpDelete("{id:Guid}"), ActionName("DeleteData")]
-        [Route("Product/DeleteData")]
-        public async Task<IActionResult> Delete(Guid id)
+        [HttpDelete]
+        [Route("contact/Delete")]
+        public async Task<IActionResult> Deleted(int id)
         {
-            string url = $"{baseAddress}User/"+ id;
+            string url = $"{baseAddress}Delete?id="+ id;
             HttpResponseMessage response = await _httpClient.DeleteAsync(url);
             if (response.IsSuccessStatusCode)
             {
@@ -116,9 +116,9 @@ namespace YummyM.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details(int id)
         {
-            string url = baseAddress + "user/" + id;
+            string url = baseAddress + "Details?id=" + id;
             HttpResponseMessage response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)

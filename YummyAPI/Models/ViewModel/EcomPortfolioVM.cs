@@ -7,8 +7,6 @@ namespace YummyAPI.Models.ViewModel
 {
     public class EcomPortfolioVM
     {
-
-   
         public string HeroTitle { get; set; }
 
         public string HeroDescription { get; set; }
@@ -69,7 +67,7 @@ namespace YummyAPI.Models.ViewModel
         public string EventImage { get; set; }
 
         [NotMapped]
-        public IFormFile? ImageEvent { get; set; }
+        public List<IFormFile>? ImageEvent { get; set; }
 
         public string EventPrice { get; set; }
 
@@ -94,7 +92,7 @@ namespace YummyAPI.Models.ViewModel
         public string GalleryImage { get; set; }
 
         [NotMapped]
-        public IFormFile? ImageGallery { get; set; }
+        public List<IFormFile>? ImageGallery { get; set; }
 
         public string ContactTitle { get; set; }
 

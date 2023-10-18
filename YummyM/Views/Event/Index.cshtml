@@ -1,0 +1,37 @@
+﻿@model List<YummyM.Models.EventVM>
+
+@{
+    ViewData["Title"] = "List Of Data";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <table class="table">
+            <tr>
+                <td>@Html.DisplayNameFor(Model =>Model.First().Id) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().eventtitle) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().eventDescrip) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().EventPrice) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().EventImage) </td>
+                <td>Actions</td>
+            </tr>
+            @foreach (var abc in Model)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(Model => abc.Id)</td>
+                    <td> @Html.DisplayFor(Model => abc.eventtitle)</td>
+                    <td> @Html.DisplayFor(Model => abc.eventDescrip)</td>
+                    <td> @Html.DisplayFor(Model => abc.EventPrice)</td>
+                    <td> @Html.DisplayFor(Model => abc.EventImage)</td>
+                    <td>
+                        <a asp-action="Update" asp-route-id="@abc.Id">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@abc.Id">Delete</a>
+                        <a asp-action="Details" asp-route-id="@abc.Id">Details</a>
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+    </div>
+</div>

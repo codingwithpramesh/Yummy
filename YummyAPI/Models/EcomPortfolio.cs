@@ -8,7 +8,9 @@ namespace YummyAPI.Models
 {
     public class EcomPortfolio
     {
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int? Id { get; set; }
 
         public string? HeroTitle { get; set; }
 
@@ -70,7 +72,7 @@ namespace YummyAPI.Models
         public string? EventImage { get; set; }
 
         [NotMapped]
-        public IFormFile? ImageEvent { get; set; }
+        public List<IFormFile>? ImageEvent { get; set; }
 
         public decimal? EventPrice { get; set; }
 
@@ -95,7 +97,7 @@ namespace YummyAPI.Models
         public string? GalleryImage { get; set; }
 
         [NotMapped]
-        public IFormFile? ImageGallery { get; set; }
+        public List<IFormFile>? ImageGallery { get; set; }
 
         public string? ContactTitle { get; set; }
 

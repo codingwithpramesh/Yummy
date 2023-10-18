@@ -5,7 +5,6 @@ using Microsoft.Extensions.Hosting;
 using System.IO;
 using YummyAPI.Data.Service.Abstract;
 using YummyAPI.Models;
-
 namespace YummyAPI.Data.Service.Implementation
 {
     public class EcomPortFolioService : IEcomPortFolioService
@@ -20,10 +19,8 @@ namespace YummyAPI.Data.Service.Implementation
 
         public async Task<EcomPortfolio> AddAsync(EcomPortfolio ecom, IFormFile AboutImage,IFormFile abou)
         {
-         
-
             string? fileName = Path.GetFileNameWithoutExtension(AboutImage?.FileName);
-            string extension = Path.GetExtension(AboutImage?.FileName);
+            string extension = Path.GetExtension(AboutImage?.FileName ?? string.Empty);
             ecom.AboutImage = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
             string path = Path.Combine(  "/Images/", fileName);
             if (AboutImage != null)

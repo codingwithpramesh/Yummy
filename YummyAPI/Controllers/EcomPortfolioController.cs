@@ -6,11 +6,13 @@ using YummyAPI.Models.ViewModel;
 using YummyAPI.Models;
 using Microsoft.AspNetCore.Hosting;
 using YummyAPI.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YummyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EcomPortfolioController : ControllerBase
     {
 
@@ -32,11 +34,11 @@ namespace YummyAPI.Controllers
         }
 
         [HttpPost("Create")]
-
         public async Task<IActionResult> Create([FromForm] EcomPortfolio ecom )
         {
             try
             {
+                List<string> allFilePaths = new List<string>();
                 string wwwRootPath = _environment.WebRootPath;
                 if (ecom.ImageAbout != null)
                     await SaveFileAsync(ecom.ImageAbout, wwwRootPath, "/Images/", "AboutImage", ecom);
@@ -44,14 +46,19 @@ namespace YummyAPI.Controllers
                 if (ecom.VideosAbout != null)
                     await SaveFileAsync(ecom.VideosAbout, wwwRootPath, "/Videos/", "AboutVideos", ecom);
 
-                if (ecom.ImageEvent != null)
-                    await SaveFileAsync(ecom.ImageEvent, wwwRootPath, "/Images/", "EventImage", ecom);
+                foreach (var imagevents in ecom.ImageEvent)
+                {   
+                        await SaveFileAsync(imagevents, wwwRootPath, "/Images/", "EventImage", ecom);
+                }
 
                 if (ecom.Imagechef != null)
                     await SaveFileAsync(ecom.Imagechef, wwwRootPath, "/Images/", "ChefImage", ecom);
 
-                if (ecom.ImageGallery != null)
-                    await SaveFileAsync(ecom.ImageGallery, wwwRootPath, "/Images/", "ImageGallery", ecom);
+                foreach(var gallaries in ecom.ImageGallery)
+                {
+                        await SaveFileAsync(gallaries, wwwRootPath, "/Images/", "GalleryImage", ecom);
+                }
+
                 await _context.ecomPortfolios.AddAsync(ecom);
                 await _context.SaveChangesAsync();
             }
@@ -94,14 +101,20 @@ namespace YummyAPI.Controllers
                 if (updatedEcom.VideosAbout != null)
                     await SaveFileAsync(updatedEcom.VideosAbout, wwwRootPath, "/Videos/", "AboutVideos",updatedEcom);
 
-                if (updatedEcom.ImageEvent != null)
-                    await SaveFileAsync(updatedEcom.ImageEvent, wwwRootPath, "/Images/", "EventImage",updatedEcom);
+                foreach(var items in updatedEcom.ImageEvent)
+                {
+                    if (updatedEcom.ImageEvent != null)
+                        await SaveFileAsync(items, wwwRootPath, "/Images/", "EventImage", updatedEcom);
 
+                }
                 if (updatedEcom.Imagechef != null)
                     await SaveFileAsync(updatedEcom.Imagechef, wwwRootPath, "/Images/", "ChefImage", updatedEcom);
 
-                if (updatedEcom.ImageGallery != null)
-                    await SaveFileAsync(updatedEcom.ImageGallery, wwwRootPath, "/Images/", "ImageGallery", updatedEcom);
+                foreach( var items in updatedEcom.ImageGallery)
+                {
+                    if (updatedEcom.ImageGallery != null)
+                        await SaveFileAsync(items, wwwRootPath, "/Images/", "ImageGallery", updatedEcom);
+                }
                 _context.ecomPortfolios.Update(updatedEcom);
                 await _context.SaveChangesAsync();
             }
@@ -191,13 +204,30 @@ namespace YummyAPI.Controllers
                     ecom.AboutVideos = directory + fileName + extension;
                     break;
                 case "EventImage":
-                    ecom.EventImage = directory + fileName + extension;
+                    if (ecom.EventImage == null)
+                    {
+                        ecom.EventImage = directory + fileName + extension;
+                    }
+                    else
+                    {
+                        ecom.EventImage += ","+ directory + fileName + extension; 
+                    }
+
+                    
                     break;
                 case "ChefImage":
                     ecom.ChefImage = directory + fileName + extension;
                     break;
                 case "GalleryImage":
-                    ecom.GalleryImage = directory+fileName + extension;
+
+                    if (ecom.GalleryImage == null)
+                    {
+                        ecom.GalleryImage = directory + fileName + extension;
+                    }
+                    else
+                    {
+                        ecom.GalleryImage += ","+ directory + fileName + extension;
+                    }
                     break;
                 default:
                     break;

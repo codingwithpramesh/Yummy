@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using YummyAPI.Data;
 
@@ -6,6 +7,7 @@ namespace YummyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   /* [Authorize]*/
     public class HomeController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -13,6 +15,8 @@ namespace YummyAPI.Controllers
         {
             _context = context;
         }
+
+
 
         [HttpGet("Home")]
         public IActionResult Home()

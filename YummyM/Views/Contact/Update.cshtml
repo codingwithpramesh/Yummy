@@ -1,0 +1,43 @@
+﻿@model ContactVM
+
+
+<form asp-controller="contact" asp-action="Update" method="post">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Subject">Subject</label>
+                <input asp-for="Subject" class="form-control" />
+                <span asp-validation-for="Subject"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Message">Message</label>
+                <input asp-for="Message" class="form-control" />
+                <span asp-validation-for="Message"></span>
+            </div>
+
+            <div class="form-group pt-3">
+                <button type="submit" asp-controller="Contact" asp-action="Update" class="btn btn-primary">update</button>
+            </div>
+        </div>
+    </div>
+
+</form>
