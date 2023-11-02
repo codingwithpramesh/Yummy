@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 using YummyM.Models;
@@ -10,9 +11,11 @@ namespace YummyM.Controllers
 
         Uri baseAddress = new Uri("https://localhost:7115/api/");
         private readonly HttpClient _httpClient;
+      //  private readonly INotyfService _notyf;
 
-        public BookController()
+        public BookController( )
         {
+           // _notyf = notyf;
             _httpClient = new HttpClient();
             _httpClient.BaseAddress = baseAddress;
         }
@@ -48,6 +51,7 @@ namespace YummyM.Controllers
 
             if (response.IsSuccessStatusCode)
             {
+                ViewBag.message = "Successfully Booked";
                 return RedirectToAction(nameof(Index));
             }
 

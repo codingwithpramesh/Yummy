@@ -13,7 +13,7 @@ namespace YummyAPI.Data.Service.Implementation
 
         public void Add(Book book)
         {
-            _context.Add(book);
+            _context.Books.Add(book);
             _context.SaveChanges();
 
         }

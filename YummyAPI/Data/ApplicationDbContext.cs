@@ -23,5 +23,7 @@ namespace YummyAPI.Data
         public DbSet<Social> Socials { get; set; }
 
         public DbSet<Event> Events { get; set; }
+
+        public DbSet<Gallery> Galleries { get; set; }
     }
 }

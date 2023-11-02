@@ -9,9 +9,9 @@ using System.Web.Http.ModelBinding;
 using System.Web.Mvc;
 using YummyAPI.Data.Service.Abstract;
 using YummyAPI.Models;
-
 namespace YummyAPI.Data.Service.Implementation
 {
+    [Authorize]
     public class EventService : IEventService
     {
         private readonly ApplicationDbContext _context;
@@ -21,13 +21,6 @@ namespace YummyAPI.Data.Service.Implementation
             _environment = environment;
             _context = context;
         }
-
-        public IEnumerable<Event> Index()
-        {
-            IEnumerable<Event> data = _context.Events.ToList();
-            return data;
-        }
-
         public IEnumerable<Event> GetAll()
         {
             var data = _context.Events.ToList();
@@ -39,26 +32,54 @@ namespace YummyAPI.Data.Service.Implementation
             var data = _context.Events.FirstOrDefault(e => e.Id == id);
             return data;
         }
-        /*public async Task<Event> AddAsync(Event events, List<IFormFile> files)
+        public async Task<Event> update(Event  events)
         {
             try
             {
-                if (files != null && files.Count > 0)
+                var data = _context.Events.FirstOrDefault(x => x.Id == events.Id);
+                if (data != null)
                 {
-                    string wwwroot = Path.Combine(_environment.WebRootPath, "Images");
-                    foreach (var file in files)
+                    string wwwroot = _environment.WebRootPath;
+                    if (data.EventImage != null)
                     {
-                        if (file.Length > 0)
-                        {
-                            var filePath = Path.Combine(wwwroot, Path.GetRandomFileName() + Path.GetExtension(file.FileName));
-                            using (var stream = new FileStream(filePath, FileMode.Create))
-                            {
-                                await file.CopyToAsync(stream);
-                            }
-                        }
+                        string filepath = Path.Combine(wwwroot+ data.EventImage);
+                        File.Delete(filepath);
                     }
+                    string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(events.ImageEvent.FileName);
+                    string extension = Path.GetExtension(events.ImageEvent.FileName);
+                    string newFileName = fileNameWithoutExtension + DateTime.Now.ToString("yymmssfff") + extension;
+                    string newPath = Path.Combine(wwwroot+"/Images/", newFileName);
+                    using (var fileStream = new FileStream(newPath, FileMode.Create))
+                    {
+                        await events.ImageEvent.CopyToAsync(fileStream);
+                    }
+                    events.EventImage = @"\Images\" + newFileName;
+                    _context.Events.Update(events);
+                    await _context.SaveChangesAsync();
+                    return events;
                 }
-                await _context.Events.AddAsync(events);
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());   
+            }
+
+            return null;
+        }
+
+        public async Task<Event> Add(Event events, IFormFile file)
+        {
+            try
+            {
+                string wwwRootPath = _environment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(events.ImageEvent.FileName);
+                string extension = Path.GetExtension(events.ImageEvent.FileName);
+                events.EventImage = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
+                string path = Path.Combine(wwwRootPath + "/Images/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await events.ImageEvent.CopyToAsync(fileStream);
+                }
+                await _context.AddAsync(events);
                 await _context.SaveChangesAsync();
                 return events;
             }
@@ -67,54 +88,30 @@ namespace YummyAPI.Data.Service.Implementation
                 Console.WriteLine(ex.ToString());
             }
 
-        }*/
-
-        public Event update(Event events)
-        {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public void DeleteAsync(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Event> Add(Event events, IFormFile? file )
-        {
-            string wwwRootPath = _environment.WebRootPath;
-            string fileName = Path.GetFileNameWithoutExtension(events.ImageEvent.FileName);
-            string extension = Path.GetExtension(events.ImageEvent.FileName);
-            events.EventImage = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
-            string path = Path.Combine(wwwRootPath + "/Images/", fileName);
-            using (var fileStream = new FileStream(path, FileMode.Create))
-            {
-                await events.ImageEvent.CopyToAsync(fileStream);
-            }
-            await _context.AddAsync(events);
-            await _context.SaveChangesAsync();
-            return events;
-
-        }
-
-        public async Task Delete (int id)
-        {
-            var data = _context.Events.FirstOrDefault(x => x.Id == id);
-
-            if(data.EventImage != null)
-            {
-                
-                string wwwroot = _environment.WebRootPath;
-                string filepath = Path.Combine(wwwroot, "Images" + data.ImageEvent.FileName);
-
-                if(File.Exists(filepath))
-                {
-                    File.Delete(data.ImageEvent.FileName);
-                }
-
-            }
-           _context.Events.Remove(data);
-            await _context.SaveChangesAsync();
             
+
+            var data = _context.Events.FirstOrDefault(x => x.Id == id);
+            if (data == null)
+            {
+                throw new ArgumentException($"No event found with ID {id}");
+            }
+            if (!string.IsNullOrEmpty(data.EventImage))
+            {
+                string wwwroot = _environment.WebRootPath;
+                string filepath = Path.Combine(wwwroot, "Images", data.EventImage);
+
+                if (File.Exists(filepath))
+                {
+                    File.Delete(filepath);
+                }
+            }
+            _context.Events.Remove(data);
+            await _context.SaveChangesAsync();
         }
     }
 }

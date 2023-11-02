@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.Http;
@@ -11,15 +12,18 @@ namespace YummyM.Controllers
         private readonly ILogger<HomeController> _logger;
         Uri baseAddress = new Uri("https://localhost:7115/api/");
         private readonly HttpClient _httpClient;
-        public HomeController(ILogger<HomeController> logger )
+
+       // private readonly INotyfService _notyf;
+        public HomeController(ILogger<HomeController> logger)
         {
             _httpClient = new HttpClient();
             _logger = logger;
+           // _notyf = notyf;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
-            string url = baseAddress + "Home/Home";
+            string url = baseAddress + "Home/Index";
             HttpResponseMessage response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)

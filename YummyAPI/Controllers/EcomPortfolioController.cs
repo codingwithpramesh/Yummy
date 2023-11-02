@@ -7,21 +7,20 @@ using YummyAPI.Models;
 using Microsoft.AspNetCore.Hosting;
 using YummyAPI.Data;
 using Microsoft.AspNetCore.Authorization;
-
 namespace YummyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   /* [Authorize]*/
     public class EcomPortfolioController : ControllerBase
     {
 
-        private readonly IEcomPortFolioService _service;
+       // private readonly IEcomPortFolioService _service;
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _environment;
-        public EcomPortfolioController(IEcomPortFolioService service, ApplicationDbContext context, IWebHostEnvironment environment)
+        public EcomPortfolioController(/*IEcomPortFolioService service,*/ ApplicationDbContext context, IWebHostEnvironment environment)
         {
-            _service = service;
+           // _service = service;
             _context = context;
             _environment = environment;
         }
@@ -29,7 +28,7 @@ namespace YummyAPI.Controllers
         [HttpGet("Index")]
         public IActionResult Index()
         {
-            var data = _service.GetAll();
+            var data = _context.ecomPortfolios.ToList();
             return Ok(data);
         }
 
@@ -46,18 +45,18 @@ namespace YummyAPI.Controllers
                 if (ecom.VideosAbout != null)
                     await SaveFileAsync(ecom.VideosAbout, wwwRootPath, "/Videos/", "AboutVideos", ecom);
 
-                foreach (var imagevents in ecom.ImageEvent)
+               /* foreach (var imagevents in ecom.ImageEvent)
                 {   
                         await SaveFileAsync(imagevents, wwwRootPath, "/Images/", "EventImage", ecom);
-                }
+                }*/
 
                 if (ecom.Imagechef != null)
                     await SaveFileAsync(ecom.Imagechef, wwwRootPath, "/Images/", "ChefImage", ecom);
 
-                foreach(var gallaries in ecom.ImageGallery)
+              /*  foreach(var gallaries in ecom.ImageGallery)
                 {
                         await SaveFileAsync(gallaries, wwwRootPath, "/Images/", "GalleryImage", ecom);
-                }
+                }*/
 
                 await _context.ecomPortfolios.AddAsync(ecom);
                 await _context.SaveChangesAsync();
@@ -110,11 +109,6 @@ namespace YummyAPI.Controllers
                 if (updatedEcom.Imagechef != null)
                     await SaveFileAsync(updatedEcom.Imagechef, wwwRootPath, "/Images/", "ChefImage", updatedEcom);
 
-                foreach( var items in updatedEcom.ImageGallery)
-                {
-                    if (updatedEcom.ImageGallery != null)
-                        await SaveFileAsync(items, wwwRootPath, "/Images/", "ImageGallery", updatedEcom);
-                }
                 _context.ecomPortfolios.Update(updatedEcom);
                 await _context.SaveChangesAsync();
             }
@@ -125,7 +119,7 @@ namespace YummyAPI.Controllers
             return Ok();
         }
 
-        [HttpPost("Delete/{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -203,7 +197,7 @@ namespace YummyAPI.Controllers
                 case "AboutVideos":
                     ecom.AboutVideos = directory + fileName + extension;
                     break;
-                case "EventImage":
+                /*case "EventImage":
                     if (ecom.EventImage == null)
                     {
                         ecom.EventImage = directory + fileName + extension;
@@ -212,13 +206,11 @@ namespace YummyAPI.Controllers
                     {
                         ecom.EventImage += ","+ directory + fileName + extension; 
                     }
-
-                    
-                    break;
+                    break;*/
                 case "ChefImage":
                     ecom.ChefImage = directory + fileName + extension;
                     break;
-                case "GalleryImage":
+               /* case "GalleryImage":
 
                     if (ecom.GalleryImage == null)
                     {
@@ -228,7 +220,7 @@ namespace YummyAPI.Controllers
                     {
                         ecom.GalleryImage += ","+ directory + fileName + extension;
                     }
-                    break;
+                    break;*/
                 default:
                     break;
 

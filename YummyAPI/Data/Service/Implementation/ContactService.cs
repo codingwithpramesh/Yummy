@@ -13,7 +13,7 @@ namespace YummyAPI.Data.Service.Implementation
         }
         public void Add(Contact contact)
         {
-            _context.Add(contact);
+            _context.Contacts.Add(contact);
             _context.SaveChanges();
         }
 

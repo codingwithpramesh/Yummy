@@ -62,7 +62,7 @@ namespace YummyM.Models
 
         public string? ProfessorRating { get; set; }
 
-        public string? eventtitle { get; set; }
+       /* public string? eventtitle { get; set; }
 
         public string? eventDescription { get; set; }
 
@@ -74,7 +74,7 @@ namespace YummyM.Models
 
         public string? EventPrice { get; set; }
 
-        public string? eventDescrip { get; set; }
+        public string? eventDescrip { get; set; }*/
 
         public string? chefTitle { get; set; }
 
@@ -108,7 +108,6 @@ namespace YummyM.Models
         public string? Phone { get; set; }
 
         public string? OpeningHour { get; set; }
-
 
         public string? FooterAddress { get; set; }
 

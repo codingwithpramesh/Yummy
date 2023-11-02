@@ -14,7 +14,7 @@ namespace YummyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    /*[Authorize]*/
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly ITokenService _service;

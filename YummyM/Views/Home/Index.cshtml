@@ -1,22 +1,22 @@
-﻿@{
+﻿@*@{
     ViewData["Title"] = "Home Page";
+    
 }
 
  @model EcomPortfolioVM
-
 <section id="hero" class="hero d-flex align-items-center section-bg">
     <div class="container">
         <div class="row justify-content-between gy-5">
             <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center align-items-center align-items-lg-start text-center text-lg-start">
-                <h2 data-aos="fade-up">@*@Model.HeroTitle*@</h2>
-                <p data-aos="fade-up" data-aos-delay="100">@*@Model.HeroDescription*@</p>
+                <h2 data-aos="fade-up">@Model.HeroTitle</h2>
+                <p data-aos="fade-up" data-aos-delay="100">@Model.HeroDescription</p>
                 <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-                    <a href="#book-a-table" class="btn-book-a-table">@*@Model.HeroButton*@</a>
-                    <a href="" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>@*@Model.HeroTitle*@</span></a>
+                    <a href="#book-a-table" class="btn-book-a-table">@Model.HeroButton</a>
+                    <a href="" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>@Model.HeroTitle</span></a>
                 </div>
             </div>
             <div class="col-lg-5 order-1 order-lg-2 text-center text-lg-start">
-                <img src=@*"@Model.AboutImage"*@ class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
+                <img src="@Model.AboutImage" class="img-fluid" alt="" data-aos="zoom-out" data-aos-delay="300">
             </div>
         </div>
     </div>
@@ -25,16 +25,16 @@
     <section id="about" class="about">
         <div class="container" data-aos="fade-up">
             <div class="section-header">
-                <h2>@*@Model.AboutTitle*@</h2>
-                <p>@*@Model.AboutDescription*@</p>
+                <h2>@Model.AboutTitle</h2>
+                <p>@Model.AboutDescription</p>
             </div>
 
-      @*      <div class="row gy-4">
+            <div class="row gy-4">
                 <div class="col-lg-7 position-relative about-img" style="background-image: url('@Model.ImageAbout') ;" data-aos="fade-up" data-aos-delay="150">
                     <div class="call-us position-absolute">
                       <img src="@Model.AboutImage"  height="500px" width="500px"alt="AboutImage" /> 
                     </div>
-                </div>*@
+                </div>
                 <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
                     <div class="content ps-0 ps-lg-5">
                         <p class="fst-italic">
@@ -50,10 +50,10 @@
                             velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident
                         </p>
 
-                        @*<div class="position-relative mt-4">
+                        <div class="position-relative mt-4">
                             <img src="@Model.AboutImage" class="img-fluid" alt="" height="100%" width="20%">
                             <a href="" class="glightbox play-btn"></a>
-                        </div>*@
+                        </div>
                     </div>
                 </div>
             </div>
@@ -600,7 +600,7 @@
                     }*@
 
 
-                    <div class="swiper-slide">
+                    @*<div class="swiper-slide">
                         <div class="testimonial-item">
                             <div class="row gy-4 justify-content-center">
                                 <div class="col-lg-6">
@@ -640,7 +640,7 @@
             </div>
 
             <div class="slides-3 swiper" data-aos="fade-up" data-aos-delay="100">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper">*@
 @*
                     <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(@Model.EventImage)
                         <div class="price align-self-start">$99</div>
@@ -649,7 +649,7 @@
                         </p>
                     </div><!-- End Event item -->*@
 
-                    <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(assets/img/events-2.jpg)">
+                   @* <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(assets/img/events-2.jpg)">
                         <h3>Private Parties</h3>
                         <div class="price align-self-start">$289</div>
                         <p class="description">
@@ -807,7 +807,7 @@
             <div class="section-header">
                 <h2>gallery</h2>
                 <p>Check <span>Our Gallery</span></p>
-            </div>
+            </div>*@
          @*   @foreach(var data in Model.GalleryImage)
             {
             <div class="gallery-slider swiper">
@@ -818,7 +818,7 @@
                 <div class="swiper-pagination"></div>
             </div>
             }*@
-
+@*
         </div>
     </section><!-- End Gallery Section -->
     <!-- ======= Contact Section ======= -->
@@ -908,7 +908,7 @@
 
 </main><!-- End #main -->
 <!-- ======= Footer ======= -->
-<footer id="footer" class="footer">
+<footer id="footer" class="footer">*@
 
    @* <div class="container">
         <div class="row gy-3">
@@ -943,8 +943,7 @@
                     </p>
                 </div>
             </div>*@
-
-            <div class="col-lg-3 col-md-6 footer-links">
+           @* <div class="col-lg-3 col-md-6 footer-links">
                 <h4>Follow Us</h4>
                 <div class="social-links d-flex">
                     <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -975,4 +974,4 @@
 
 <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-<div id="preloader"></div>
+<div id="preloader"></div>*@*

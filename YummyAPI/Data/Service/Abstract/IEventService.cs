@@ -8,9 +8,9 @@ namespace YummyAPI.Data.Service.Abstract
 
         Event GetById(int id);
 
-        Task<Event> Add(Event events , IFormFile? file);
+        Task<Event> Add(Event events, IFormFile file);
 
-        Event update(Event events);
+        Task<Event> update(Event events);
 
         Task Delete(int id);
     }

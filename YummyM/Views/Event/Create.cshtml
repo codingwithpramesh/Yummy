@@ -1,0 +1,50 @@
+﻿@model EventVM
+@{
+    ViewData["Title"] = "Create Event";
+}
+
+
+<form asp-controller="Event" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+
+            <div class="form-group">
+                <label asp-for="eventtitle">Event Title</label>
+                <input asp-for="eventtitle" class="form-control" />
+                <span asp-validation-for="eventtitle"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="eventDescription">Event Description</label>
+                <input asp-for="eventDescription" class="form-control" />
+                <span asp-validation-for="eventDescription"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="EventImage">Event Image</label>
+                <input asp-for="EventImage" class="form-control" />
+                <span asp-validation-for="EventImage"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="EventPrice">Event Price</label>
+                <input asp-for="EventPrice" class="form-control" />
+                <span asp-validation-for="EventPrice"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="eventDescrip">event Description</label>
+                <input asp-for="eventDescrip" class="form-control" />
+                <span asp-validation-for="eventDescrip"></span>
+            </div>
+
+            <div class="form-group pt-3">
+                <button type="submit" asp-controller="Event" asp-action="Create" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </div>
+</form>

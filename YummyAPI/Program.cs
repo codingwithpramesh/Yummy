@@ -10,7 +10,6 @@ using System.Text;
 using YummyAPI.Data;
 using YummyAPI.Data.Service.Abstract;
 using YummyAPI.Data.Service.Implementation;
-
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -49,6 +48,7 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IContactService, ContactService>();
 builder.Services.AddScoped<ISocialMedia, SocialService>();
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IGalleryService, GalleryService>();
 
 
 builder.Services.AddControllers(); ;

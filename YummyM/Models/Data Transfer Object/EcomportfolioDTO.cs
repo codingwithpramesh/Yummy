@@ -57,7 +57,7 @@ namespace YummyM.Models.Data_Transfer_Object
 
         public string? ProfessorRating { get; set; }
 
-        public string? eventtitle { get; set; }
+       /* public string? eventtitle { get; set; }
 
         public string? eventDescription { get; set; }
 
@@ -69,7 +69,7 @@ namespace YummyM.Models.Data_Transfer_Object
 
         public string? EventPrice { get; set; }
 
-        public string? eventDescrip { get; set; }
+        public string? eventDescrip { get; set; }*/
 
         public string? chefTitle { get; set; }
 
@@ -85,12 +85,7 @@ namespace YummyM.Models.Data_Transfer_Object
 
         public string? ChefDescription { get; set; }
 
-        public string? GalleryTitle { get; set; }
-
-        public string? GalleryImage { get; set; }
-
-        [NotMapped]
-        public List<IFormFile>? ImageGallery { get; set; }
+      
 
         public string? ContactTitle { get; set; }
 

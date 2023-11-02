@@ -7,14 +7,15 @@ using YummyAPI.Models.ViewModel;
 
 namespace YummyAPI.Controllers
 {
+
    /* [Authorize]*/
     public class ContactController : Controller
     {
         private readonly IContactService _service;
         private readonly ApplicationDbContext _context;
-        public ContactController( IContactService service , ApplicationDbContext context) 
+        public ContactController(IContactService service, ApplicationDbContext context)
         {
-           _service = service;
+            _service = service;
             _context = context;
         }
 
@@ -27,13 +28,13 @@ namespace YummyAPI.Controllers
 
 
         [HttpPost("Create")]
-        public IActionResult Create([FromBody]ContactVM contactVM)
+        public IActionResult Create([FromBody] ContactVM contactVM)
         {
             var data = new Contact
             {
                 Name=   contactVM.Name,
                 Email = contactVM.Email,
-                 Subject= contactVM.Subject,
+                Subject= contactVM.Subject,
                 Message = contactVM.Message,
             };
             _context.Contacts.Add(data);
@@ -43,7 +44,7 @@ namespace YummyAPI.Controllers
         }
 
         [HttpPut("Update")]
-        public IActionResult Update(int id , [FromBody]ContactVM contactVm)
+        public IActionResult Update(int id, [FromBody] ContactVM contactVm)
         {
             var data = _context.Contacts.Find(id);
             if (data != null)
@@ -88,7 +89,7 @@ namespace YummyAPI.Controllers
 
 
         [HttpGet("Details")]
-        public IActionResult Details( int id)
+        public IActionResult Details(int id)
         {
             var user = _context.Contacts.Find(id);
 

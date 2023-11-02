@@ -6,17 +6,18 @@ namespace YummyAPI.Models
     public class Social
     {
         [Key]
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int? Id { get; set; }
 
-        public string Icon { get; set; }
+        public string? Icon { get; set; }
 
         [NotMapped]
         public IFormFile? IconFile { get; set; }
 
         public string Link { get; set; }
 
-        public int EId { get; set; }
+       /* public int EId { get; set; }
         [ForeignKey("EId")]
-        public EcomPortfolio? Portfolio { get; set; }
+        public EcomPortfolio? Portfolio { get; set; }*/
     }
 }

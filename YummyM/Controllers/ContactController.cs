@@ -127,8 +127,6 @@ namespace YummyM.Controllers
                 ContactVM userViewModel = JsonConvert.DeserializeObject<ContactVM>(jsonResponse);
                 return View(userViewModel);
             }
-
-
             return NotFound();
         }
     }

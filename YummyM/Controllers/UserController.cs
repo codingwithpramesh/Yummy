@@ -21,9 +21,6 @@ namespace YummyM.Controllers
         {
             return View();
         }
-
-     
-
         [HttpPost, ActionName("Register")]
         public async Task<IActionResult> RegisteredAsync( RegisterModel Register)
         {
@@ -52,7 +49,6 @@ namespace YummyM.Controllers
         {
             string url = baseAddress + "user/login" ;
             HttpResponseMessage response = await _httpClient.GetAsync(url);
-
             if (response.IsSuccessStatusCode)
             {
                 string jsonResponse = await response.Content.ReadAsStringAsync();

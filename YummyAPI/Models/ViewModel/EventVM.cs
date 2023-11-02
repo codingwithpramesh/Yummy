@@ -6,7 +6,8 @@ namespace YummyAPI.Models.ViewModel
     public class EventVM
     {
         [Key]
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int? Id { get; set; }
 
         public string? eventtitle { get; set; }
 

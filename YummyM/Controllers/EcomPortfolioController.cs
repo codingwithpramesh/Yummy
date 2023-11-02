@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.IO.Pipes;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -27,7 +28,6 @@ namespace YummyM.Controllers
             if (response.IsSuccessStatusCode)
             {
                 string JsonResponse = await response.Content.ReadAsStringAsync();
-
                 List<EcomPortfolioVM> users = JsonConvert.DeserializeObject<List<EcomPortfolioVM>>(JsonResponse);
                 return View(users);
             }
@@ -41,6 +41,7 @@ namespace YummyM.Controllers
             return View();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Create(EcomPortfolioVM ecom)
         {
@@ -52,17 +53,15 @@ namespace YummyM.Controllers
                     string url = baseAddress + "EcomPortfolio/Create";
                    await FileSaveAsync(ecom.ImageAbout);
                    await FileSaveAsync(ecom.Imagechef);
-                    foreach (var data in ecom.ImageEvent)
+                    /*foreach (var data in ecom.ImageEvent)
                     {
                       await  FileSaveAsync(data);
-                    }
-                    foreach (var data in ecom.ImageGallery)
+                    }*/
+                  /*  foreach (var data in ecom.ImageGallery)
                     {
                       await  FileSaveAsync(data);
-                    }
-                   await FileSaveAsync(ecom.VideosAbout);
-
-
+                    }*/
+                    await FileSaveAsync(ecom.VideosAbout);
                     var multipartContent = new MultipartFormDataContent();
                     if (ecom.ImageAbout != null)
                     {
@@ -76,24 +75,28 @@ namespace YummyM.Controllers
                         streamContent.Headers.ContentType = new MediaTypeHeaderValue(ecom.Imagechef.ContentType);
                         multipartContent.Add(streamContent, "chefImage", ecom.Imagechef.FileName);
                     }
-                    if (ecom.ImageEvent != null && ecom.ImageEvent.Count > 0)
+                   /* if (ecom.ImageEvent != null && ecom.ImageEvent.Count > 0)
                     {
+                        int index = 0;
                         foreach (var imageEvent in ecom.ImageEvent)
                         {
                             var streamContent = new StreamContent(imageEvent.OpenReadStream());
                             streamContent.Headers.ContentType = new MediaTypeHeaderValue(imageEvent.ContentType);
-                            multipartContent.Add(streamContent, "imageEvent"+ecom.ImageEvent, imageEvent.FileName);
+                            multipartContent.Add(streamContent, "imageEvent"+index, imageEvent.FileName);
+                            index++;
                         }
-                    }
-                    if (ecom.ImageGallery != null &&ecom.ImageGallery.Count>0)
+                    }*/
+                    /*if (ecom.ImageGallery != null &&ecom.ImageGallery.Count>0)
                     {
+                        int index = 0;
                         foreach (var galleryImage in ecom.ImageGallery)
                         {
                             var streamContentGallery = new StreamContent(galleryImage.OpenReadStream());
                             streamContentGallery.Headers.ContentType = new MediaTypeHeaderValue(galleryImage.ContentType);
-                            multipartContent.Add(streamContentGallery, "ImageGallery", galleryImage.FileName);
+                            multipartContent.Add(streamContentGallery, "ImageGallery"+index, galleryImage.FileName);
+                            index++;
                         }
-                    }
+                    }*/
 
                     if (ecom.VideosAbout != null)
                     {
@@ -137,15 +140,15 @@ namespace YummyM.Controllers
                     multipartContent.Add(new StringContent(ecom.professorName ?? string.Empty), "professorName");
                     multipartContent.Add(new StringContent(ecom.ProfessorPosition ?? string.Empty), "ProfessorPosition");
                     multipartContent.Add(new StringContent(ecom.ProfessorRating ?? string.Empty), "ProfessorRating");
-                    multipartContent.Add(new StringContent(ecom.eventtitle ?? string.Empty), "eventtitle");
+                    /*multipartContent.Add(new StringContent(ecom.eventtitle ?? string.Empty), "eventtitle");
                     multipartContent.Add(new StringContent(ecom.eventDescription ?? string.Empty), "eventDescription");
                     multipartContent.Add(new StringContent(ecom.EventPrice ?? string.Empty), "EventPrice");
-                    multipartContent.Add(new StringContent(ecom.eventDescrip ?? string.Empty), "eventDescrip");
+                    multipartContent.Add(new StringContent(ecom.eventDescrip ?? string.Empty), "eventDescrip");*/
                     multipartContent.Add(new StringContent(ecom.chefTitle ?? string.Empty), "chefTitle");
                     multipartContent.Add(new StringContent(ecom.chefName ?? string.Empty), "chefName");
                     multipartContent.Add(new StringContent(ecom.ChefPosition ?? string.Empty), "ChefPosition");
                     multipartContent.Add(new StringContent(ecom.ChefDescription ??string.Empty), "ChefDescription");
-                    multipartContent.Add(new StringContent(ecom.GalleryTitle ?? string.Empty), "GalleryTitle");
+                   // multipartContent.Add(new StringContent(ecom.GalleryTitle ?? string.Empty), "GalleryTitle");
                     multipartContent.Add(new StringContent(ecom.ContactTitle ?? string.Empty), "ContactTitle");
                     multipartContent.Add(new StringContent(ecom.ContactDescription ?? string.Empty), "ContactDescription");
                     multipartContent.Add(new StringContent(ecom.contactEmail ?? string.Empty), "contactEmail");
@@ -165,19 +168,16 @@ namespace YummyM.Controllers
                         var FileStream = System.IO.File.OpenRead(Fullpath);
                         multipartContent.Add(new StreamContent(FileStream), "ImageAbout", file);
                     }
-
-
                     if (ecom.Imagechef != null)
                     {
                         string file = ecom.Imagechef.FileName;
                         string path = Directory.GetCurrentDirectory();
                         string Fullpath = Path.Combine(path+ "\\wwwroot\\Images\\"+ file);
-                        // var filename1 = Path.GetFileName(Fullpath);
                         var FileStream = System.IO.File.OpenRead(Fullpath);
                         multipartContent.Add(new StreamContent(FileStream), "Imagechef", file);
                     }
 
-
+/*
                     if (ecom.ImageEvent!= null && ecom.ImageEvent.Any())
                     {
                         foreach (var imageEvent in ecom.ImageEvent)
@@ -193,8 +193,8 @@ namespace YummyM.Controllers
                                 multipartContent.Add(new StreamContent(fileStream), "ImageEvent", file);
                             }
                         }
-                    }
-                    if (ecom.ImageGallery != null && ecom.ImageGallery.Any())
+                    }*/
+                  /*  if (ecom.ImageGallery != null && ecom.ImageGallery.Any())
                     {
                         foreach (var galleryImage in ecom.ImageGallery)
                         {
@@ -207,11 +207,14 @@ namespace YummyM.Controllers
                             {
                                 using (var fileStream = System.IO.File.OpenRead(fullpath))
                                 {
+                                    new StreamContent(fileStream).Headers.ContentType = new MediaTypeHeaderValue(file);
                                     multipartContent.Add(new StreamContent(fileStream), "ImageGallery", file);
                                 }
                             }
                         }
-                    }
+                    }*/
+
+
                     if (ecom.VideosAbout != null)
                     {
                         string file = ecom.VideosAbout.FileName;
@@ -220,7 +223,6 @@ namespace YummyM.Controllers
                         var FileStream = System.IO.File.OpenRead(Fullpath);
                         multipartContent.Add(new StreamContent(FileStream), "VideosAbout", file);
                     }
-
                     HttpResponseMessage response = await _httpClient.PostAsync(url, multipartContent);
                     if (response.IsSuccessStatusCode)
                     {
@@ -234,16 +236,16 @@ namespace YummyM.Controllers
 
                 }
             }
-
             return View(ecom);
-
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Edit(int id)
         {
-            string url = $"{baseAddress}Ecomportfolio/Update";
+            string url = $"{baseAddress}EcomPortfolio/Update?id="+ id;
+           
+            MultipartContent multipartContent = new MultipartContent();
             HttpResponseMessage response = await _httpClient.GetAsync(url);
             if (response.IsSuccessStatusCode)
             {
@@ -255,10 +257,9 @@ namespace YummyM.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Update(int id, EcomPortfolioVM ecom)
+        public async Task<IActionResult> Edit(int id, EcomPortfolioVM ecom)
         {
-            string url = $"{baseAddress}User/"+ id;
+            string url = $"{baseAddress}EcomPortfolio/Update?id="+ id;
             var content = new StringContent(JsonConvert.SerializeObject(ecom), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PutAsync(url, content);
 
@@ -273,7 +274,7 @@ namespace YummyM.Controllers
         [Route("Product/DeleteData")]
         public async Task<IActionResult> DeleteData(int id)
         {
-            string url = baseAddress + "User/"+ id;
+            string url = baseAddress + "EcomPortfolio/Delete/"+ id;
             HttpResponseMessage response = await _httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
@@ -286,7 +287,7 @@ namespace YummyM.Controllers
         }
         public async Task<IActionResult> Delete(int id)
         {
-            string url = $"{baseAddress}Ecomportfolio/";
+            string url = $"{baseAddress}EcomPortfolio/Delete/" + id;
             HttpResponseMessage response = await _httpClient.DeleteAsync(url);
             if (response.IsSuccessStatusCode)
             {

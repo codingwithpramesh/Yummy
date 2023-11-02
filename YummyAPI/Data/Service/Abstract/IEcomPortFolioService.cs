@@ -13,6 +13,6 @@ namespace YummyAPI.Data.Service.Abstract
 
         EcomPortfolio update(EcomPortfolio ecom);
 
-        void Delete(int id);
+        Task DeleteAsync(int id);
     }
 }

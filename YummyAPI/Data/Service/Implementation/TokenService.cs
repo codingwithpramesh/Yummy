@@ -12,8 +12,6 @@ namespace YummyAPI.Data.Service.Implementation
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
-
-
         public TokenService( ApplicationDbContext context , IConfiguration configuration)
         {
             _configuration = configuration;

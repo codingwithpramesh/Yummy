@@ -11,8 +11,8 @@ namespace YummyAPI.Models.ViewModel
 
         public string Link { get; set; }
 
-        public int EId { get; set; }
+        /*public int EId { get; set; }
         [ForeignKey("EId")]
-        public EcomPortfolio? Portfolio { get; set; }
+        public EcomPortfolio? Portfolio { get; set; }*/
     }
 }

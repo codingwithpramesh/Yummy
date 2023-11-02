@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.PortableExecutable;
 using YummyAPI.Data.Enum;
-
 namespace YummyAPI.Models
 {
     public class EcomPortfolio
@@ -11,19 +10,14 @@ namespace YummyAPI.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }
-
         public string? HeroTitle { get; set; }
-
         public string? HeroDescription { get; set; }
-
         public string? HeroButton { get; set; }
-
         public string? AboutTitle { get; set; }
 
         public string? AboutDescription { get; set; }
 
         public string? AboutImage { get; set; }
-
         [NotMapped]
         public IFormFile? ImageAbout { get; set; }
 
@@ -79,44 +73,21 @@ namespace YummyAPI.Models
         public string? eventDescrip { get; set; }
 
         public string? chefTitle { get; set; }
-
-        
         public string? ChefImage { get; set; }
-
         [NotMapped]
         public IFormFile? Imagechef { get; set; }
-
         public string? chefName { get; set; }
-
         public string? ChefPosition { get; set; }
-
         public string? ChefDescription { get; set; }
-
-        public string? GalleryTitle { get; set; }
-
-        public string? GalleryImage { get; set; }
-
-        [NotMapped]
-        public List<IFormFile>? ImageGallery { get; set; }
-
         public string? ContactTitle { get; set; }
-
         public string? ContactDescription { get; set; }
-
         public string? contactEmail { get; set; }
-
         public string? contactAddress { get; set; }
-
         public string? Phone { get; set; }
-
         public int? OpeningHour { get; set; }
-
         public string? FooterAddress { get; set; }
-
         public string? FooterPhone { get; set; }
-
         public string? FooterEmail { get; set; }
-
         public string? FooterOpeningHour { get; set; }
     }
 }

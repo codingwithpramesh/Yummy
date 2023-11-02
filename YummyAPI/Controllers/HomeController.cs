@@ -18,8 +18,8 @@ namespace YummyAPI.Controllers
 
 
 
-        [HttpGet("Home")]
-        public IActionResult Home()
+        [HttpGet("Index")]
+        public IActionResult Index()
         {
             var data = _context.ecomPortfolios.FirstOrDefault();
             return Ok(data);

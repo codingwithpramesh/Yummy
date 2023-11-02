@@ -1,0 +1,31 @@
+﻿@model GalleryVM
+@{
+    ViewData["Title"] = "Create Gallery";
+}
+<form asp-controller="Gallery" asp-action="Delete" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+
+            <div class="form-group">
+                <label asp-for="GalleryTitle">GalleryTitle</label>
+                <input asp-for="GalleryTitle" class="form-control" />
+                <span asp-validation-for="GalleryTitle"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GalleryImage">Gallery Image</label>
+                <input asp-for="GalleryImage" class="form-control" />
+                <span asp-validation-for="GalleryImage"></span>
+            </div>
+
+
+
+            <div class="form-group pt-3">
+                <button type="submit" asp-controller="Gallery" asp-action="Delete" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+    </div>
+
+
+
+</form>

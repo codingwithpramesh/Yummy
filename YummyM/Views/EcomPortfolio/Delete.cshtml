@@ -1,5 +1,342 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using YummyM.Data;
+@model EcomPortfolioVM
+
+
 @{
+    ViewData["Title"] = "Create EcomPortfolio";
 }
+
+<form asp-controller="Ecomportfolio" asp-action="Delete" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                <label asp-for="HeroTitle">Hero Title</label>
+                <input asp-for="HeroTitle" class="form-control" name="HeroTitle" />
+                <span asp-validation-for="HeroTitle"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="HeroDescription">Hero Description</label>
+                <textarea asp-for="HeroDescription" rows="5" cols="5" class="form-control" name="HeroDescription">  </textarea>
+                <span asp-validation-for="HeroDescription"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="HeroButton">Hero Button</label>
+                <input asp-for="HeroButton" class="form-control" name="HeroButton" />
+                <span asp-validation-for="HeroButton"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="AboutTitle">About Title</label>
+                <input asp-for="AboutTitle" class="form-control" name="AboutTitle" />
+                <span asp-validation-for="AboutTitle"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="AboutDescription">About Description</label>
+                <textarea rows="5" cols="5" asp-for="AboutDescription" class="form-control" name="AboutDescription"> </textarea>
+                <span asp-validation-for="AboutDescription"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="AboutImage">About Image</label>
+                <input type="file" asp-for="AboutImage" class="form-control" name="ImageAbout" />
+                <span asp-validation-for="AboutImage"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="AboutVideos">About Videos</label>
+                <input type="file" asp-for="AboutVideos" class="form-control" name="VideosAbout" />
+                <span asp-validation-for="AboutVideos"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="CardTitle">Card Title</label>
+                <input asp-for="AboutTitle" class="form-control" name="CardTitle" />
+                <span asp-validation-for="AboutTitle"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="CardDescription">Card Description</label>
+                <textarea rows="5" cols="5" asp-for="CardDescription" class="form-control" name="CardDescription"></textarea>
+                <span asp-validation-for="CardDescription"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="CardButtonText">Card Button Text</label>
+                <input asp-for="CardButtonText" class="form-control" name="CardButtonText" />
+                <span asp-validation-for="CardButtonText"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="TotalClient">Total Client</label>
+                <input asp-for="TotalClient" class="form-control" name="TotalClient" />
+                <span asp-validation-for="TotalClient"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="totalProject">Total Project</label>
+                <input asp-for="totalProject" class="form-control" name="totalProject" />
+                <span asp-validation-for="totalProject"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="TotalHours">Total Hours</label>
+                <input asp-for="TotalHours" class="form-control" name="TotalHours" />
+                <span asp-validation-for="TotalHours"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="TotalWorkers">Total Workers</label>
+                <input asp-for="TotalWorkers" class="form-control" name="TotalWorkers" />
+                <span asp-validation-for="TotalWorkers"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="MenuTitle">Menu Title</label>
+                <input asp-for="MenuTitle" class="form-control" name="MenuTitle" />
+                <span asp-validation-for="MenuTitle"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Menuvalue">Menu Value</label>
+                <input asp-for="Menuvalue" class="form-control" name="Menuvalue" />
+                <span asp-validation-for="Menuvalue"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TimeCategory">Time Category</label>
+                @* <select asp-for="TimeCategory" asp-items="Html.GetEnumSelectList<Time>()" name="TimeCategory" class="form-control">
+                </select>*@
+
+                <select asp-for="TimeCategory">
+                    <option value=1> Starter</option>
+                    <option value=2> Breakfast</option>
+                    <option value=3> Lunch</option>
+                    <option value=4>Brunch</option>
+                </select>
+                <span asp-validation-for="TimeCategory"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="professorTitle">Professor Title</label>
+                <input asp-for="professorTitle" class="form-control" name="professorTitle" />
+                <span asp-validation-for="professorTitle"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="ProfessorDescription">Professor Description</label>
+                <textarea rows="5" cols="5" asp-for="ProfessorDescription" class="form-control" name="ProfessorDescription"> </textarea>
+                <span asp-validation-for="ProfessorDescription"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="professorName">Professor Name</label>
+                <input asp-for="professorName" class="form-control" name="professorName" />
+                <span asp-validation-for="professorName"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="ProfessorPosition">Professor Position</label>
+                <input asp-for="ProfessorPosition" class="form-control" name="ProfessorPosition" />
+                <span asp-validation-for="ProfessorPosition"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="ProfessorRating">Professor Rating</label>
+                <input asp-for="ProfessorRating" class="form-control" name="ProfessorRating" />
+                <span asp-validation-for="ProfessorRating"></span>
+            </div>
+
+            @* <div class="form-group">
+            <label asp-for="eventtitle"> Event Title</label>
+            <input asp-for="eventtitle" class="form-control" name="eventtitle" />
+            <span asp-validation-for="eventtitle"></span>
+            </div>
+
+
+            <div class="form-group">
+            <label asp-for="eventDescription">Event Description</label>
+            <textarea rows="5" cols="5" asp-for="eventDescription" class="form-control" name="eventDescription"> </textarea>
+            <span asp-validation-for="eventDescription"></span>
+            </div>
+
+
+
+            <div class="form-group">
+            <label asp-for="EventImage">Event Image</label>
+            <input type="file" asp-for="EventImage" class="form-control" name="ImageEvent"  multiple />
+            <span asp-validation-for="EventImage"></span>
+            </div>
+
+
+            <div class="form-group">
+            <label asp-for="EventPrice">Event Price</label>
+            <input asp-for="EventPrice" class="form-control" name="EventPrice" />
+            <span asp-validation-for="EventPrice"></span>
+            </div>
+
+
+            <div class="form-group">
+            <label asp-for="eventDescrip">Event Description</label>
+            <textarea rows="5" cols="5" asp-for="eventDescrip" class="form-control" name="eventDescrip"> </textarea>
+            <span asp-validation-for="eventDescrip"></span>
+            </div>*@
+
+
+            <div class="form-group">
+                <label asp-for="chefTitle"> Chef Title</label>
+                <input asp-for="chefTitle" class="form-control" name="chefTitle" />
+                <span asp-validation-for="chefTitle"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="ChefImage">Chef Image</label>
+                <input type="file" asp-for="ChefImage" class="form-control" name="Imagechef" />
+                <span asp-validation-for="ChefImage"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="chefName">Chef Name</label>
+                <input asp-for="chefName" class="form-control" name="chefName" />
+                <span asp-validation-for="chefName"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="ChefPosition">Chef Position</label>
+                <input asp-for="ChefPosition" class="form-control" name="ChefPosition" />
+                <span asp-validation-for="ChefPosition"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="ChefDescription">chef Description</label>
+                <textarea rows="5" cols="5" asp-for="ChefDescription" class="form-control" name="ChefDescription"> </textarea>
+                <span asp-validation-for="ChefDescription"></span>
+            </div>
+
+
+            @*
+            <div class="form-group">
+            <label asp-for="GalleryTitle">Gallery Title</label>
+            <input asp-for="GalleryTitle" class="form-control" name="GalleryTitle" />
+            <span asp-validation-for="GalleryTitle"></span>
+            </div>
+
+
+            <div class="form-group">
+            <label asp-for="GalleryImage">Gallery Image</label>
+            <input type="file" asp-for="GalleryImage" class="form-control" name="ImageGallery" multiple />
+            <span asp-validation-for="GalleryImage"></span>
+            </div>
+            *@
+
+            <div class="form-group">
+                <label asp-for="ContactTitle">chef Title</label>
+                <input asp-for="ContactTitle" class="form-control" name="ContactTitle" />
+                <span asp-validation-for="chefTitle"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="ContactDescription">Contact Description</label>
+                <textarea rows="5" cols="5" asp-for="ContactDescription" class="form-control" name="ContactDescription"> </textarea>
+                <span asp-validation-for="ContactDescription"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="contactEmail">Contact Email</label>
+                <input asp-for="contactEmail" class="form-control" name="contactEmail" />
+                <span asp-validation-for="contactEmail"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="contactAddress">Contact Address</label>
+                <input asp-for="contactAddress" class="form-control" name="contactAddress" />
+                <span asp-validation-for="contactAddress"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Phone">Phone</label>
+                <input asp-for="Phone" class="form-control" name="Phone" />
+                <span asp-validation-for="Phone"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="OpeningHour">Opening Hour</label>
+                <input asp-for="OpeningHour" class="form-control" name="OpeningHour" />
+                <span asp-validation-for="OpeningHour"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="FooterAddress">Footer Address</label>
+                <input asp-for="FooterAddress" class="form-control" name="FooterAddress" />
+                <span asp-validation-for="FooterAddress"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="FooterPhone">Footer Phone</label>
+                <input asp-for="FooterPhone" class="form-control" name="FooterPhone" />
+                <span asp-validation-for="FooterPhone"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="FooterEmail">Footer Email</label>
+                <input asp-for="FooterEmail" class="form-control" name="FooterEmail" />
+                <span asp-validation-for="FooterEmail"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="FooterOpeningHour"> Footer Opening Hour</label>
+                <input asp-for="FooterOpeningHour" class="form-control" name="FooterOpeningHour" />
+                <span asp-validation-for="FooterOpeningHour"></span>
+            </div>
+
+
+
+            <div class="form-group pt-3">
+                <button type="submit" asp-controller="Ecomportfolio" asp-action="Delete" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+    </div>
+
+</form>

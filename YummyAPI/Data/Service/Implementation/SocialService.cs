@@ -6,17 +6,20 @@ namespace YummyAPI.Data.Service.Implementation
     public class SocialService : ISocialMedia
     {
         private readonly ApplicationDbContext _context;
-        public SocialService( ApplicationDbContext context) 
+        private readonly IWebHostEnvironment _environment;
+        public SocialService( ApplicationDbContext context , IWebHostEnvironment environment) 
         {
+            _environment = environment;
             _context = context;
         }
 
         public async Task<Social> Add(Social social , IFormFile file)
         {
+            string wwwroot = _environment.WebRootPath;
             string? fileName = Path.GetFileNameWithoutExtension(file?.FileName);
             string extension = Path.GetExtension(file?.FileName);
             social.Icon = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
-            string path = Path.Combine("/Images/", fileName);
+            string path = Path.Combine(wwwroot+"/Images/", fileName);
             if (social.Icon != null)
             {
                 using (var fileStream = new FileStream(path, FileMode.Create))
@@ -24,7 +27,6 @@ namespace YummyAPI.Data.Service.Implementation
                     await file?.CopyToAsync(fileStream);
                 }
             }
-
             await _context.Socials.AddAsync(social);
             await _context.SaveChangesAsync();
             return social;

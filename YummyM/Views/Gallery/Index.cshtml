@@ -1,0 +1,31 @@
+﻿@model List<YummyM.Models.GalleryVM>
+
+@{
+    ViewData["Title"] = "List Of Data";
+}
+<a asp-controller="Gallery" asp-action="Create">Create</a>
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <table class="table">
+            <tr>
+                <td>@Html.DisplayNameFor(Model =>Model.First().Id) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().GalleryTitle) </td>
+                <td>@Html.DisplayNameFor(Model =>Model.First().GalleryImage) </td>
+                <td>Actions</td>
+            </tr>
+            @foreach (var abc in Model)
+            {
+                <tr>
+                    <td> @Html.DisplayFor(Model => abc.Id)</td>
+                    <td> @Html.DisplayFor(Model => abc.GalleryTitle)</td>
+                    <td> @Html.DisplayFor(Model => abc.GalleryImage)</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@abc.Id">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@abc.Id">Delete</a>
+                        <a asp-action="Details" asp-route-id="@abc.Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

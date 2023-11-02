@@ -9,8 +9,6 @@ using YummyAPI.Data.Enum;
 using YummyAPI.Models;
 using YummyAPI.Models.DTO;
 using YummyAPI.Models.ViewModel;
-
-
 namespace YummyAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -120,19 +118,16 @@ namespace YummyAPI.Controllers
         }
 
 
-        /*[HttpPatch("partialUpdate")]
-        public async Task<IActionResult> PatchUpdate(int id, JsonPatchDocument<BookDTO> Model)
+        [HttpPatch("partialUpdate")]
+        public async Task<IActionResult> partialUpdate(int id, JsonPatchDocument<Book> Model)
         {
             var data = _context.Books.Find(id);
-            data.Name = "Pramesh";
-            data.email = "Prameshbhattarai005@gmail.com";
-            data.Phone = "1234567890";
             Model.ApplyTo(data);
             await _context.SaveChangesAsync();
 
 
             return Ok();
-        }*/
+        }
 
     }
 }

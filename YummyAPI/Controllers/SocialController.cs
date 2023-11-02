@@ -12,10 +12,12 @@ namespace YummyAPI.Controllers
     [ApiController]
     public class SocialController : ControllerBase
     {
-        private readonly ISocialMedia _service;
-        public SocialController( ISocialMedia service) 
+        private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _environment;
+        public SocialController( ApplicationDbContext context , IWebHostEnvironment environment) 
         {
-            _service = service;
+            _environment = environment;
+            _context = context;
         }
 
 
@@ -23,15 +25,21 @@ namespace YummyAPI.Controllers
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            //var data = _context.Socials.ToList();
+            var data = _context.Socials.ToList();
             return Ok();
         }
 
         [HttpPost("Create")]
-        public IActionResult Create(Social social , IFormFile file)
+        public async Task<IActionResult> Create([FromForm]Social social , IFormFile file)
         {
-            var data = _service.Add(social, file);
-            return Ok(data);
+            string www = _environment.WebRootPath;
+            string date = Path.Combine(www+ "Images" + file.FileName);
+            using (FileStream filestream  = new FileStream(date, FileMode.Create))
+            {
+               await file.CopyToAsync(filestream);
+            }
+            return Ok();
+
 
         }
 

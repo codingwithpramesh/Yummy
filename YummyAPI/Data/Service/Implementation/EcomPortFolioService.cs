@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.IO;
 using YummyAPI.Data.Service.Abstract;
 using YummyAPI.Models;
@@ -17,7 +18,7 @@ namespace YummyAPI.Data.Service.Implementation
             _context=context;
         }
 
-        public async Task<EcomPortfolio> AddAsync(EcomPortfolio ecom, IFormFile AboutImage,IFormFile abou)
+       /* public async Task<EcomPortfolio> AddAsync(EcomPortfolio ecom, IFormFile AboutImage,IFormFile abou)
         {
             string? fileName = Path.GetFileNameWithoutExtension(AboutImage?.FileName);
             string extension = Path.GetExtension(AboutImage?.FileName ?? string.Empty);
@@ -34,11 +35,27 @@ namespace YummyAPI.Data.Service.Implementation
             await _context.ecomPortfolios.AddAsync(ecom);
             await _context.SaveChangesAsync();
             return ecom;
-        }
+        }*/
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var data = _context.Events.FirstOrDefault(x => x.Id == id);
+            if (data == null)
+            {
+                throw new ArgumentException($"No event found with ID {id}");
+            }
+            if (!string.IsNullOrEmpty(data.EventImage))
+            {
+                string wwwroot = _webHostEnvironment.WebRootPath;
+                string filepath = Path.Combine(wwwroot, "Images", data.EventImage);
+
+                if (File.Exists(filepath))
+                {
+                    File.Delete(filepath);
+                }
+            }
+            _context.Events.Remove(data);
+            await _context.SaveChangesAsync();
         }
 
         public IEnumerable<EcomPortfolio> GetAll()
@@ -59,22 +76,6 @@ namespace YummyAPI.Data.Service.Implementation
 
         public async Task<EcomPortfolio> AddAsync(EcomPortfolio ecom, IFormFile file)
         {
-            /* string? fileName = Path.GetFileNameWithoutExtension(AboutImage?.FileName);
-             string extension = Path.GetExtension(AboutImage?.FileName);
-             ecom.AboutImage = @"\Images\" + (fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension);
-             string path = Path.Combine("/Images/", fileName);
-             if (AboutImage != null)
-             {
-                 using (var fileStream = new FileStream(path, FileMode.Create))
-                 {
-                     await AboutImage?.CopyToAsync(fileStream);
-                 }
-             }
-
-             await _context.ecomPortfolios.AddAsync(ecom);
-             await _context.SaveChangesAsync();
-             return ecom;*/
-
             try
             {
 
